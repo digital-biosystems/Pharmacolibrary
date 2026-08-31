@@ -17,6 +17,8 @@ PartialDrugSource
 PartialPeriodicDoseSource
 PartialEffect
 PartialIndirectEffect
+PartialDoseEffect
+PartialConcEffect
 PharmaBus
 PartialBloodTissueCompartment
 FlowPort_la
