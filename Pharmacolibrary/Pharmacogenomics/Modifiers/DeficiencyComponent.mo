@@ -15,6 +15,13 @@ model DeficiencyComponent "reports a graded deficiency level; deliberately drive
       iconTransformation(origin = {110, -60}, extent = {{-20, -20}, {20, 20}})));
   parameter Boolean checkAlleles = true
     "assert that both alleles appear in the gene's table" annotation(Dialog(tab = "Advanced"));
+  final parameter String riskLabel =
+    if Integer(PGx.deficiencyOf(deficiency.gene.allele, deficiency.gene.alleleClass,
+                                deficiency.allele[1], deficiency.allele[2]))
+       < Integer(PGx.DeficiencyLevel.Deficient) then ""
+    else deficiency.gene.symbol + " " + deficiency.allele[1] +
+         (if deficiency.allele[2] == "" then "" else "/" + deficiency.allele[2]) +
+         " " + deficiency.gene.outcome;
 initial equation
   // allele[2] = "" is a legitimate hemizygous male genotype, not a typo.
   assert(not checkAlleles or PGx.knownAllele(deficiency.gene.allele, deficiency.allele[1]),
@@ -26,8 +33,7 @@ initial equation
   assert(not (warnIfDeficient and Integer(PGx.deficiencyOf(
              deficiency.gene.allele, deficiency.gene.alleleClass,
              deficiency.allele[1], deficiency.allele[2])) > 2),
-         "PGx: " + deficiency.gene.symbol + " deficiency — " + deficiency.gene.outcome,
-         AssertionLevel.warning);
+         "PGx risk: " + riskLabel, AssertionLevel.warning);
 equation
   level = Integer(PGx.deficiencyOf(deficiency.gene.allele, deficiency.gene.alleleClass,
                                    deficiency.allele[1], deficiency.allele[2]));

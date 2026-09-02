@@ -16,4 +16,5 @@ Deficiency
 deficiencyOf
 knownAllele
 RiskBus
+riskAlleleOf
 GeneEffectComponent

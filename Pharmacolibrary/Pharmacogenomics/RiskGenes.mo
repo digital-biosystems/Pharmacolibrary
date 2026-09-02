@@ -13,7 +13,7 @@ package RiskGenes "carriage genes — CPIC assigns these by ALLELE STATUS"
     extends PGx.RiskGene(
       symbol     = "HLA-A",
       riskAllele = {"*31:01"},
-      outcome    = "see the CPIC guideline for this gene");
+      outcome    = "adverse reaction risk with carbamazepine, oxcarbazepine, tebentafusp");
   end HLA_A;
 
   record HLA_B
@@ -22,7 +22,7 @@ package RiskGenes "carriage genes — CPIC assigns these by ALLELE STATUS"
     extends PGx.RiskGene(
       symbol     = "HLA-B",
       riskAllele = {"*15:02", "*57:01", "*58:01"},
-      outcome    = "see the CPIC guideline for this gene");
+      outcome    = "adverse reaction risk with abacavir, allopurinol, carbamazepine, flucloxacillin, fosphenytoin, lamotrigine and 3 more");
   end HLA_B;
 
 end RiskGenes;

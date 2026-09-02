@@ -12,6 +12,15 @@ model CarriageComponent "flags carriage of a risk allele; deliberately drives no
     Placement(transformation(origin = {0, -100}, extent = {{-20, -20}, {20, 20}})));
   final parameter Real oddsRatio = carriage.gene.oddsRatio
     "reported association strength — annotation only, read by nothing here";
+  // "{gene} {variant} {description}", or "" when this subject is not flagged. A String
+  // parameter, so it reaches an application through the model description / init file even
+  // though Modelica keeps strings out of the trajectory results.
+  final parameter String riskLabel =
+    if PGx.riskAlleleOf(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2]) == ""
+    then ""
+    else carriage.gene.symbol + " " +
+         PGx.riskAlleleOf(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2]) +
+         " " + carriage.gene.outcome;
   parameter Boolean checkAlleles = true
     "assert each allele is a risk allele or the explicit negative label"
     annotation(Dialog(tab = "Advanced"));
@@ -28,8 +37,7 @@ initial equation
   // A warning, not an error: a contraindicated subject is a legitimate thing to simulate, and
   // the run should say so loudly rather than refuse or stay silent.
   assert(not (warnIfCarrier and PGx.isCarrier(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2])),
-         "PGx: subject carries " + carriage.gene.symbol + " risk allele — " +
-         carriage.gene.outcome, AssertionLevel.warning);
+         "PGx risk: " + riskLabel, AssertionLevel.warning);
 equation
   riskBus.nRisk = -(if carrier then 1 else 0);   // negative: sources contribute, summary reads
   carrier = PGx.isCarrier(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2]);
