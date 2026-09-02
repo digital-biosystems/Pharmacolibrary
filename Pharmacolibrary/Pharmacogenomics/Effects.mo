@@ -32,13 +32,13 @@ package Effects "what a phenotype does to ONE model parameter, per (gene, parame
      which is traceable to a table. */
   record SLC22A2_CL "OCT2 transport effect on renal clearance"
     extends PGx.Effect(
-      redeclare parameter Genes.SLC22A2 gene, target = "CL",
+      redeclare parameter GenesCurated.SLC22A2 gene, target = "CL",
       scale = {1.0, 0.7, 0.85, 1.0, 1.2, 1.3});
   end SLC22A2_CL;
 
   record SLC47A1_CL "MATE1 transport effect on renal clearance"
     extends PGx.Effect(
-      redeclare parameter Genes.SLC47A1 gene, target = "CL",
+      redeclare parameter GenesCurated.SLC47A1 gene, target = "CL",
       scale = {1.0, 0.8, 0.9, 1.0, 1.0, 1.0});
   end SLC47A1_CL;
 
@@ -56,7 +56,7 @@ package Effects "what a phenotype does to ONE model parameter, per (gene, parame
 
   record CYP3A4_CL "CYP3A4 metabolic effect on clearance"
     extends PGx.Effect(
-      redeclare parameter Genes.CYP3A4 gene, target = "CL",
+      redeclare parameter GenesCurated.CYP3A4 gene, target = "CL",
       scale = {1.0, 0.6, 0.8, 1.0, 1.0, 1.0});
   end CYP3A4_CL;
 end Effects;

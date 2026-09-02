@@ -25,7 +25,7 @@ model Patient_PKPG_1C_Metoprolol
     Placement(transformation(origin = {20, -52}, extent = {{-10, -10}, {10, 10}})));
   Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP2D6(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP2D6_CL effect, redeclare parameter Pharmacolibrary.Pharmacogenomics.Diplotypes.CYP2D6 diplotype(allele = {CYP2D6_1, CYP2D6_2})) annotation(
     Placement(transformation(origin = {68, -20}, extent = {{-20, -20}, {20, 20}})));
-  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP3A4(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP3A4_CL effect, redeclare parameter Pharmacolibrary.Pharmacogenomics.Diplotypes.CYP3A4 diplotype(allele = {CYP3A4_1, CYP3A4_2})) annotation(
+  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP3A4(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP3A4_CL effect, redeclare parameter Pharmacolibrary.Pharmacogenomics.DiplotypesCurated.CYP3A4 diplotype(allele = {CYP3A4_1, CYP3A4_2})) annotation(
     Placement(transformation(origin = {67, -53}, extent = {{-19, -19}, {19, 19}})));
   Pharmacolibrary.Pharmacogenomics.Modifiers.ScaleComponent clearanceModifierComponent1 annotation(
     Placement(transformation(origin = {20, -34}, extent = {{-10, -10}, {10, 10}})));

@@ -8,7 +8,7 @@ extends Modelica.Icons.Example;
   parameter Pharmacolibrary.Types.VolumeFlowRate Cl_nom = 0.1/(1000*60);
   parameter Boolean usePGx = true "true = apply genotype scaling";
   parameter Pharmacolibrary.Pharmacogenomics.Effects.SLC22A2_CL pgx "gene + what it scales";
-  parameter Pharmacolibrary.Pharmacogenomics.Diplotypes.SLC22A2 dip(
+  parameter Pharmacolibrary.Pharmacogenomics.DiplotypesCurated.SLC22A2 dip(
     allele = {"*1", "*1"}) /* <- change one entry to "808T" for Intermediate */;
   Types.VolumeFlowRate Cl_eff "effective clearance";
 equation

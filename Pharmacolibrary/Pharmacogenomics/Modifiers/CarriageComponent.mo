@@ -1,0 +1,26 @@
+within Pharmacolibrary.Pharmacogenomics.Modifiers;
+
+model CarriageComponent "flags carriage of a risk allele; deliberately drives no equation"
+  replaceable parameter PGx.Carriage carriage constrainedby PGx.Carriage
+    annotation(choicesAllMatching = true, Dialog(group = "Pharmacogenomics"));
+  parameter Boolean warnIfCarrier = true
+    "raise a simulation warning when the subject carries the risk allele";
+  Modelica.Blocks.Interfaces.BooleanOutput carrier "subject carries a risk allele" annotation(
+    Placement(transformation(extent = {{80, -10}, {100, 10}}),
+      iconTransformation(origin = {110, 0}, extent = {{-20, -20}, {20, 20}})));
+  final parameter Real oddsRatio = carriage.gene.oddsRatio
+    "reported association strength — annotation only, read by nothing here";
+initial equation
+  // A warning, not an error: a contraindicated subject is a legitimate thing to simulate, and
+  // the run should say so loudly rather than refuse or stay silent.
+  assert(not (warnIfCarrier and PGx.isCarrier(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2])),
+         "PGx: subject carries " + carriage.gene.symbol + " risk allele — " +
+         carriage.gene.outcome, AssertionLevel.warning);
+equation
+  carrier = PGx.isCarrier(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2]);
+  annotation(
+    Icon(graphics = {Rectangle(fillColor = {255, 190, 111}, fillPattern = FillPattern.Solid, extent = {{-80, 60}, {80, -60}}), Text(extent = {{-70, 20}, {70, -20}}, textString = "risk"), Text(origin = {-2, 12}, extent = {{-90, 75}, {90, 45}}, textString = "%name")}),
+    Documentation(info = "<html><body><p>Emits carriage as a Boolean and warns once at
+initialization. It has no signal input and no scaled output because carriage is not a factor on
+any PK or PD parameter — see <code>PGx.RiskGene</code> for why.</p></body></html>"));
+end CarriageComponent;
