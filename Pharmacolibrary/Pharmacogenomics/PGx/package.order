@@ -10,4 +10,8 @@ scaleFor
 RiskGene
 Carriage
 isCarrier
+DeficiencyLevel
+GradedGene
+Deficiency
+deficiencyOf
 GeneEffectComponent
