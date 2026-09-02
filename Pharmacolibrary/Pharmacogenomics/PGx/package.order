@@ -1,17 +1,4 @@
-Genotype
-phStatus
-phScaleCL
-Modifier
-GenotypePhenotypeComponent
-inArray
-Phenotype
 MetabolizerStatus
-phStatusDbg
-partialPhScale
-phScaleF
-phScaleFm
-phStatusScore
-alleleScoreOf
 Gene
 Effect
 activityOf
