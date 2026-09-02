@@ -7,3 +7,8 @@ inArray
 Phenotype
 MetabolizerStatus
 phStatusDbg
+partialPhScale
+phScaleF
+phScaleFm
+phStatusScore
+alleleScoreOf

@@ -4,3 +4,4 @@ AbsorptionModifier
 EC50Modifier
 ProteinBindingModifier
 EmaxModifier
+FractionMetabolizedModifier

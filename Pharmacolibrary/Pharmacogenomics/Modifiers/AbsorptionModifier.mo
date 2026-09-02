@@ -11,5 +11,7 @@ within Pharmacolibrary.Pharmacogenomics.Modifiers;
  *    • equation `modified = base*scale(g)`
  ********************************************************************/
 model AbsorptionModifier
-  extends PGx.Modifier;          // nothing else needed
+  // Fscale, not CLscale: this modifies F/ka. Before Modifier.scale became replaceable
+  // this class inherited phScaleCL and silently scaled absorption by the CLEARANCE vector.
+  extends PGx.Modifier(redeclare function scale = PGx.phScaleF);
 end AbsorptionModifier;
