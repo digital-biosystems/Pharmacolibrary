@@ -12,3 +12,8 @@ phScaleF
 phScaleFm
 phStatusScore
 alleleScoreOf
+Gene
+Effect
+activityOf
+statusOf
+scaleOf
