@@ -9,9 +9,9 @@ model PKPG_1C_Gentamicin
     Placement(transformation(origin = {-2, -68}, extent = {{-10, -10}, {10, 10}})));
   Pharmacolibrary.Pharmacogenomics.Modifiers.ScaleComponent clearanceModifierComponent annotation(
     Placement(transformation(origin = {20, -52}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent SLC22A2(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.SLC22A2_CL effect, allele = {"808T", "*1"})  annotation(
+  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent SLC22A2(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.SLC22A2_CL effect, redeclare parameter Pharmacolibrary.Pharmacogenomics.Diplotypes.SLC22A2 diplotype(allele = {"808T", "*1"}))  annotation(
     Placement(transformation(origin = {68, -20}, extent = {{-20, -20}, {20, 20}})));
-  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP2C19(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP2C19_CL effect, allele = {"*2", "*1"})  annotation(
+  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP2C19(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP2C19_CL effect, redeclare parameter Pharmacolibrary.Pharmacogenomics.Diplotypes.CYP2C19 diplotype(allele = {"*2", "*1"}))  annotation(
     Placement(transformation(origin = {67, -53}, extent = {{-19, -19}, {19, 19}})));
   Pharmacolibrary.Pharmacogenomics.Modifiers.ScaleComponent clearanceModifierComponent1 annotation(
     Placement(transformation(origin = {20, -34}, extent = {{-10, -10}, {10, 10}})));

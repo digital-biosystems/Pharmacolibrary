@@ -4,4 +4,7 @@ Effect
 activityOf
 statusOf
 scaleOf
+Diplotype
+statusFor
+scaleFor
 GeneEffectComponent
