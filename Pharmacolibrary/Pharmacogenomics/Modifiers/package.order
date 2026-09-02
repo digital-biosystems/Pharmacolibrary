@@ -5,3 +5,4 @@ EC50Modifier
 ProteinBindingModifier
 EmaxModifier
 FractionMetabolizedModifier
+ScaleComponent
