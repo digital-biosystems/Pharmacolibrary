@@ -41,24 +41,24 @@ model Patient_PKPG_2C_Ibuprofen
   parameter Types.MassConcentration C_tox_valley = 0.0021 "Peak toxicity concentration";
   Sources.ClearanceConst elimClearance(Cl = CL) annotation(
     Placement(transformation(origin = {-2, -68}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacolibrary.Pharmacogenomics.Modifiers.ClearanceModifierComponent clearanceModifierComponent annotation(
+  Pharmacolibrary.Pharmacogenomics.Modifiers.ScaleComponent clearanceModifierComponent annotation(
     Placement(transformation(origin = {20, -52}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacolibrary.Pharmacogenomics.PGx.GenotypePhenotypeComponent SLC22A2(redeclare Pharmacolibrary.Pharmacogenomics.Genotypes.SLC22A2Genotype g(allele = {SLC22A2_1, SLC22A2_2})) annotation(
+  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent SLC22A2(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.SLC22A2_CL effect, allele = {SLC22A2_1, SLC22A2_2}) annotation(
     Placement(transformation(origin = {68, -20}, extent = {{-20, -20}, {20, 20}})));
-  Pharmacolibrary.Pharmacogenomics.PGx.GenotypePhenotypeComponent CYP2C19(redeclare Pharmacolibrary.Pharmacogenomics.Genotypes.CYP2C19Genotype g(allele = {CYP2C19_1, CYP2C19_2})) annotation(
+  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP2C19(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP2C19_CL effect, allele = {CYP2C19_1, CYP2C19_2}) annotation(
     Placement(transformation(origin = {67, -53}, extent = {{-19, -19}, {19, 19}})));
-  Pharmacolibrary.Pharmacogenomics.Modifiers.ClearanceModifierComponent clearanceModifierComponent1 annotation(
+  Pharmacolibrary.Pharmacogenomics.Modifiers.ScaleComponent clearanceModifierComponent1 annotation(
     Placement(transformation(origin = {20, -34}, extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(elimClearance.y, clearanceModifierComponent.qv_in) annotation(
+  connect(elimClearance.y, clearanceModifierComponent.q_in) annotation(
     Line(points = {{9, -68}, {20, -68}, {20, -56}}, color = {0, 0, 127}));
-  connect(clearanceModifierComponent.qv_out, clearanceModifierComponent1.qv_in) annotation(
+  connect(clearanceModifierComponent.q_out, clearanceModifierComponent1.q_in) annotation(
     Line(points = {{20, -46}, {20, -38}}, color = {0, 0, 127}));
   connect(SLC22A2.y, clearanceModifierComponent1.u) annotation(
     Line(points = {{50, -20}, {30, -20}, {30, -34}}, color = {0, 0, 127}));
   connect(clearanceModifierComponent.u, CYP2C19.y) annotation(
     Line(points = {{30, -52}, {50, -52}, {50, -53}}, color = {0, 0, 127}));
-  connect(clearanceModifierComponent1.qv_out, elim.Cl_input) annotation(
+  connect(clearanceModifierComponent1.q_out, elim.Cl_input) annotation(
     Line(points = {{20, -28}, {18, -28}, {18, -18}}, color = {0, 0, 127}));
   annotation(
     experiment(StartTime = 0, StopTime = 86400, Tolerance = 1e-06, Interval = 1),

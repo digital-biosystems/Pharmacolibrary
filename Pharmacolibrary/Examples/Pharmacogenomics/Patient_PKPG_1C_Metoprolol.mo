@@ -3,10 +3,10 @@ within Pharmacolibrary.Examples.Pharmacogenomics;
 model Patient_PKPG_1C_Metoprolol
   extends Icons.BodyArtieralVenous;
   extends Icons.Pills;
-  parameter String SLC22A2_1 = "*1";
-  parameter String SLC22A2_2 = "*1";
-  parameter String CYP2C19_1 = "*1";
-  parameter String CYP2C19_2 = "*1";
+  parameter String CYP2D6_1 = "*1";
+  parameter String CYP2D6_2 = "*1";
+  parameter String CYP3A4_1 = "*1";
+  parameter String CYP3A4_2 = "*1";
   parameter Types.Clearance CL = 1.575e-6 "clearance";
   parameter Types.Volume Vd = 0.224 "volume of distribution";
   Sources.PeriodicDose_Enteral dose(firstAdminTime(displayUnit = "s") = 60, adminMass = 5e-5, adminDuration(displayUnit = "s") = 60, F = 0.5, adminPeriod = 86400, doseCount = -1, ka = 0.016666666666666666) annotation(
@@ -21,24 +21,24 @@ model Patient_PKPG_1C_Metoprolol
   parameter Types.MassConcentration C_tox_valley = 2.9e-4 "Peak toxicity concentration";
   Sources.ClearanceConst elimClearance(Cl = CL) annotation(
     Placement(transformation(origin = {-2, -68}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacolibrary.Pharmacogenomics.Modifiers.ClearanceModifierComponent clearanceModifierComponent annotation(
+  Pharmacolibrary.Pharmacogenomics.Modifiers.ScaleComponent clearanceModifierComponent annotation(
     Placement(transformation(origin = {20, -52}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacolibrary.Pharmacogenomics.PGx.GenotypePhenotypeComponent CYP2D6(redeclare Pharmacolibrary.Pharmacogenomics.Genotypes.SLC22A2Genotype g(allele = {SLC22A2_1, SLC22A2_2})) annotation(
+  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP2D6(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP2D6_CL effect, allele = {CYP2D6_1, CYP2D6_2}) annotation(
     Placement(transformation(origin = {68, -20}, extent = {{-20, -20}, {20, 20}})));
-  Pharmacolibrary.Pharmacogenomics.PGx.GenotypePhenotypeComponent CYP3A4(redeclare Pharmacolibrary.Pharmacogenomics.Genotypes.CYP2C19Genotype g(allele = {CYP2C19_1, CYP2C19_2})) annotation(
+  Pharmacolibrary.Pharmacogenomics.PGx.GeneEffectComponent CYP3A4(redeclare parameter Pharmacolibrary.Pharmacogenomics.Effects.CYP3A4_CL effect, allele = {CYP3A4_1, CYP3A4_2}) annotation(
     Placement(transformation(origin = {67, -53}, extent = {{-19, -19}, {19, 19}})));
-  Pharmacolibrary.Pharmacogenomics.Modifiers.ClearanceModifierComponent clearanceModifierComponent1 annotation(
+  Pharmacolibrary.Pharmacogenomics.Modifiers.ScaleComponent clearanceModifierComponent1 annotation(
     Placement(transformation(origin = {20, -34}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(dose.cport, central.cport) annotation(
     Line(points = {{-12, 12}, {-12, 2}}, color = {114, 159, 207}));
   connect(central.cport, elim.cport) annotation(
     Line(points = {{-12, 2}, {18, 2}}, color = {114, 159, 207}));
-  connect(elimClearance.y, clearanceModifierComponent.qv_in) annotation(
+  connect(elimClearance.y, clearanceModifierComponent.q_in) annotation(
     Line(points = {{9, -68}, {20, -68}, {20, -56}}, color = {0, 0, 127}));
-  connect(clearanceModifierComponent.qv_out, clearanceModifierComponent1.qv_in) annotation(
+  connect(clearanceModifierComponent.q_out, clearanceModifierComponent1.q_in) annotation(
     Line(points = {{20, -46}, {20, -38}}, color = {0, 0, 127}));
-  connect(clearanceModifierComponent1.qv_out, elim.Cl_input) annotation(
+  connect(clearanceModifierComponent1.q_out, elim.Cl_input) annotation(
     Line(points = {{20, -28}, {18, -28}, {18, -18}}, color = {0, 0, 127}));
   connect(CYP2D6.y, clearanceModifierComponent1.u) annotation(
     Line(points = {{50, -20}, {30, -20}, {30, -34}}, color = {0, 0, 127}));

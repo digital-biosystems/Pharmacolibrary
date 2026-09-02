@@ -33,7 +33,7 @@ package Genes "allele -> phenotype knowledge, one record per gene"
       symbol        = "CYP3A4",
       allele        = {"*1", "*22"},
       activityScore = { 1.0,   0.5},
-      poorMax = 0.0, intermediateMax = 1.0, normalMax = 2.0, rapidMax = 2.0);
+      poorMax = 0.0, intermediateMax = 1.5, normalMax = 2.0, rapidMax = 2.0);
   end CYP3A4;
 
   /* SLC22A2 (OCT2). 808G>T reduces transport. */
@@ -42,7 +42,7 @@ package Genes "allele -> phenotype knowledge, one record per gene"
       symbol        = "SLC22A2",
       allele        = {"*1", "808T"},
       activityScore = { 1.0,    0.5},
-      poorMax = 0.0, intermediateMax = 1.0, normalMax = 2.0, rapidMax = 2.0);
+      poorMax = 0.0, intermediateMax = 1.5, normalMax = 2.0, rapidMax = 2.0);
   end SLC22A2;
 
   /* SLC47A1 (MATE1). */
@@ -51,6 +51,6 @@ package Genes "allele -> phenotype knowledge, one record per gene"
       symbol        = "SLC47A1",
       allele        = {"*1", "rs2289669A", "LoF"},
       activityScore = { 1.0,          0.5,   0.0},
-      poorMax = 0.0, intermediateMax = 1.0, normalMax = 2.0, rapidMax = 2.0);
+      poorMax = 0.0, intermediateMax = 1.5, normalMax = 2.0, rapidMax = 2.0);
   end SLC47A1;
 end Genes;
