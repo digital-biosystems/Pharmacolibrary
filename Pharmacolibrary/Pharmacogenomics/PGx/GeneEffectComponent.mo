@@ -10,8 +10,17 @@ model GeneEffectComponent "diplotype -> the unitless scale its phenotype applies
   Pharmacolibrary.Types.RealOutput y(unit = "1") "scale factor for effect.target" annotation(
     Placement(transformation(extent = {{80, -10}, {100, 10}}),
       iconTransformation(origin = {112, 0}, extent = {{192, -24}, {240, 24}}, rotation = 180)));
+  parameter Boolean checkAlleles = true
+    "assert that both alleles appear in the gene's table" annotation(Dialog(tab = "Advanced"));
   MetabolizerStatus status "phenotype this diplotype maps to";
 initial equation
+  // An allele the gene does not list scores as fully functional in activityOf, so a typo
+  // silently upgrades the phenotype instead of failing. Catch it here.
+  for i in 1:2 loop
+    assert(not checkAlleles or knownAllele(diplotype.gene.allele, diplotype.allele[i]),
+           "PGx: '" + diplotype.allele[i] + "' is not a known " + diplotype.gene.symbol +
+           " allele");
+  end for;
   // Also asserted here, not only inside scaleFor: a tool may constant-fold a function whose
   // arguments are all parameters and discard the assert inside it, which is exactly what
   // happened to the first version of this guard.

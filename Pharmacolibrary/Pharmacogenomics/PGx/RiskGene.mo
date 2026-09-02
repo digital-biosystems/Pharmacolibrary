@@ -7,6 +7,11 @@ record RiskGene "a gene whose clinical consequence is allele CARRIAGE, not enzym
   // Reported association strength. ANNOTATION ONLY — see the documentation: it is deliberately
   // not consumed by any equation in this library.
   parameter Real oddsRatio = 1.0 "reported odds/hazard ratio, 1 when not quantified";
+  // CPIC keys these genes as '*57:01 positive' / '*57:01 negative' rather than by diplotype,
+  // and publishes no full allele vocabulary to check a name against. So non-carriage must be
+  // STATED with this label rather than implied by naming some other allele: that way a typo in
+  // a risk allele fails the assert instead of silently reading as a safe subject.
+  parameter String negativeLabel = "negative" "the explicit not-a-carrier value";
   annotation(Documentation(info = "<html><body>
 <p>CPIC assigns these genes by ALLELE STATUS rather than by a metaboliser phenotype (its
 <code>lookupmethod</code> field), and they do not belong in the <code>Gene</code>/<code>Effect</code>

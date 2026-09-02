@@ -10,7 +10,19 @@ model CarriageComponent "flags carriage of a risk allele; deliberately drives no
       iconTransformation(origin = {110, 0}, extent = {{-20, -20}, {20, 20}})));
   final parameter Real oddsRatio = carriage.gene.oddsRatio
     "reported association strength — annotation only, read by nothing here";
+  parameter Boolean checkAlleles = true
+    "assert each allele is a risk allele or the explicit negative label"
+    annotation(Dialog(tab = "Advanced"));
 initial equation
+  // isCarrier returns false for anything it does not recognise, so a mistyped '*57:01' reads
+  // as a subject who may safely receive the drug. Requiring each allele to be either a listed
+  // risk allele or the explicit negative label turns that silent false into a failure.
+  for i in 1:2 loop
+    assert(not checkAlleles or carriage.allele[i] == carriage.gene.negativeLabel or
+           PGx.knownAllele(carriage.gene.riskAllele, carriage.allele[i]),
+           "PGx: '" + carriage.allele[i] + "' is neither a listed " + carriage.gene.symbol +
+           " risk allele nor '" + carriage.gene.negativeLabel + "'");
+  end for;
   // A warning, not an error: a contraindicated subject is a legitimate thing to simulate, and
   // the run should say so loudly rather than refuse or stay silent.
   assert(not (warnIfCarrier and PGx.isCarrier(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2])),

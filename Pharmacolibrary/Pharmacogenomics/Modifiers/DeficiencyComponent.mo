@@ -11,7 +11,16 @@ model DeficiencyComponent "reports a graded deficiency level; deliberately drive
   Modelica.Blocks.Interfaces.BooleanOutput deficient "level is Deficient or worse" annotation(
     Placement(transformation(extent = {{80, -50}, {100, -30}}),
       iconTransformation(origin = {110, -60}, extent = {{-20, -20}, {20, 20}})));
+  parameter Boolean checkAlleles = true
+    "assert that both alleles appear in the gene's table" annotation(Dialog(tab = "Advanced"));
 initial equation
+  // allele[2] = "" is a legitimate hemizygous male genotype, not a typo.
+  assert(not checkAlleles or PGx.knownAllele(deficiency.gene.allele, deficiency.allele[1]),
+         "PGx: '" + deficiency.allele[1] + "' is not a known " + deficiency.gene.symbol +
+         " allele");
+  assert(not checkAlleles or PGx.knownAllele(deficiency.gene.allele, deficiency.allele[2], true),
+         "PGx: '" + deficiency.allele[2] + "' is not a known " + deficiency.gene.symbol +
+         " allele (use \"\" for a hemizygous genotype)");
   assert(not (warnIfDeficient and Integer(PGx.deficiencyOf(
              deficiency.gene.allele, deficiency.gene.alleleClass,
              deficiency.allele[1], deficiency.allele[2])) > 2),
