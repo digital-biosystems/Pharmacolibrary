@@ -8,6 +8,8 @@ model DeficiencyComponent "reports a graded deficiency level; deliberately drive
     "DeficiencyLevel: 1 indeterminate, 2 normal, 3 variable, 4 deficient, 5 CNSHA" annotation(
     Placement(transformation(extent = {{80, -10}, {100, 10}}),
       iconTransformation(origin = {110, 0}, extent = {{-20, -20}, {20, 20}})));
+  PGx.RiskBus riskBus "connect to a RiskSummary to be counted" annotation(
+    Placement(transformation(origin = {0, -100}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.BooleanOutput deficient "level is Deficient or worse" annotation(
     Placement(transformation(extent = {{80, -50}, {100, -30}}),
       iconTransformation(origin = {110, -60}, extent = {{-20, -20}, {20, 20}})));
@@ -30,6 +32,7 @@ equation
   level = Integer(PGx.deficiencyOf(deficiency.gene.allele, deficiency.gene.alleleClass,
                                    deficiency.allele[1], deficiency.allele[2]));
   deficient = level >= Integer(PGx.DeficiencyLevel.Deficient);
+  riskBus.nRisk = -(if deficient then 1 else 0);
   annotation(
     Icon(graphics = {Rectangle(fillColor = {255, 190, 111}, fillPattern = FillPattern.Solid, extent = {{-80, 60}, {80, -60}}), Text(extent = {{-70, 20}, {70, -20}}, textString = "grade"), Text(origin = {-2, 12}, extent = {{-90, 75}, {90, 45}}, textString = "%name")}),
     Documentation(info = "<html><body><p>Emits the severity level and a convenience Boolean, and

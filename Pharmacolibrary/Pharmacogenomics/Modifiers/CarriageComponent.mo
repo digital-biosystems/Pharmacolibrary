@@ -8,6 +8,8 @@ model CarriageComponent "flags carriage of a risk allele; deliberately drives no
   Modelica.Blocks.Interfaces.BooleanOutput carrier "subject carries a risk allele" annotation(
     Placement(transformation(extent = {{80, -10}, {100, 10}}),
       iconTransformation(origin = {110, 0}, extent = {{-20, -20}, {20, 20}})));
+  PGx.RiskBus riskBus "connect to a RiskSummary to be counted" annotation(
+    Placement(transformation(origin = {0, -100}, extent = {{-20, -20}, {20, 20}})));
   final parameter Real oddsRatio = carriage.gene.oddsRatio
     "reported association strength — annotation only, read by nothing here";
   parameter Boolean checkAlleles = true
@@ -29,6 +31,7 @@ initial equation
          "PGx: subject carries " + carriage.gene.symbol + " risk allele — " +
          carriage.gene.outcome, AssertionLevel.warning);
 equation
+  riskBus.nRisk = -(if carrier then 1 else 0);   // negative: sources contribute, summary reads
   carrier = PGx.isCarrier(carriage.gene.riskAllele, carriage.allele[1], carriage.allele[2]);
   annotation(
     Icon(graphics = {Rectangle(fillColor = {255, 190, 111}, fillPattern = FillPattern.Solid, extent = {{-80, 60}, {80, -60}}), Text(extent = {{-70, 20}, {70, -20}}, textString = "risk"), Text(origin = {-2, 12}, extent = {{-90, 75}, {90, 45}}, textString = "%name")}),
