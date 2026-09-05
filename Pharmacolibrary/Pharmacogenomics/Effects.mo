@@ -3,28 +3,10 @@ within Pharmacolibrary.Pharmacogenomics;
 package Effects "what a phenotype does to ONE model parameter, per (gene, parameter, drug)"
   extends Modelica.Icons.Package;
 
-  /* ── clopidogrel / CYP2C19 (Jung YS et al., CPT Pharmacometrics Syst Pharmacol
-     2024;13(1):29-40) ───────────────────────────────────────────────────────────────────
-     The gene does NOT change the parent's clearance; it changes how the eliminated drug is
-     SPLIT, so there is no clearance effect here at all — only the two fractions. Entries are
-     ratios to the EM (Normal) reference from the paper's Table 3:
-        fm1  0.125 / 0.083 / 0.050   ->  1 / 0.664 / 0.400   (EM / IM / PM)
-        fm2  0.960 / 0.852 / 0.678   ->  1 / 0.8875 / 0.70625
-     Rapid and Ultra repeat the Normal value: *17 was not represented among the paper's 36
-     subjects, so no gain-of-function estimate exists. */
-  record CYP2C19_clopidogrel_fm1 "CYP2C19 on fm1 — the branch to the active metabolite H4"
-    extends PGx.Effect(
-      redeclare parameter Genes.CYP2C19 gene,
-      target = "fm1",
-      scale  = {1.0, 0.400, 0.664, 1.0, 1.0, 1.0});
-  end CYP2C19_clopidogrel_fm1;
-
-  record CYP2C19_clopidogrel_fm2 "CYP2C19 on fm2 — the fraction metabolised at all"
-    extends PGx.Effect(
-      redeclare parameter Genes.CYP2C19 gene,
-      target = "fm2",
-      scale  = {1.0, 0.70625, 0.8875, 1.0, 1.0, 1.0});
-  end CYP2C19_clopidogrel_fm2;
+  /* The clopidogrel/CYP2C19 effects used to live here. They moved to
+     Examples.Clopidogrel (CYP2C19_fm1 / CYP2C19_fm2) because they are not gene knowledge:
+     they are ratios to ONE paper's typical values and mean nothing away from that paper's
+     fm1/fm2 decomposition. Genes.CYP2C19 stays here, being true of the gene everywhere. */
 
   /* ── clearance effects carried over from the first-generation Phenotypes records ────────
      These reproduce the CLscale vectors those records shipped with. They are illustrative
