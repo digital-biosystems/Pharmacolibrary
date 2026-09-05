@@ -17,6 +17,7 @@ PartialDrugSource
 PartialPeriodicDoseSource
 PartialEffect
 PartialIndirectEffect
+PartialKPD
 PartialDoseEffect
 PartialConcEffect
 PharmaBus
