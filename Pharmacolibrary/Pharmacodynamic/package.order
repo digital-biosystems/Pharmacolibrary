@@ -3,6 +3,8 @@ EmaxEffect
 SigmoidEmaxEffect
 DoseEffect
 ConcEffect
+SigmoidEmaxSweep
+IndirectTurnoverSweep
 ZeroOrderInhibitionEffect
 FirstOrderInhibitionEffect
 ZeroOrderStimulationEffect
