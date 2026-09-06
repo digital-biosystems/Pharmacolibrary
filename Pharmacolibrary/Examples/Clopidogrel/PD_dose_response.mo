@@ -10,7 +10,7 @@ model PD_dose_response
     exposure_per_s = 1.0);
 
   annotation(
-    experiment(StartTime = 0, StopTime = 1000, Tolerance = 1e-06, Interval = 1),
+    experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-06, Interval = 0.01),
     Documentation(info = "<html><body><h4>PD_dose_response</h4>
 <p>The steady-state exposure-response curve of Jung YS et al., <i>CPT Pharmacometrics Syst
 Pharmacol</i> 2024;13(1):29-40 — P2Y12 reaction units against clopidogrel H4 concentration —
