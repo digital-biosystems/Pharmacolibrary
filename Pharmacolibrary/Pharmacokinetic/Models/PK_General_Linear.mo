@@ -44,7 +44,7 @@ equation
     C[i] = comp[i].cport.c;
     connect(elim[i].cport, comp[i].cport);       // elim[i] with CL=0 contributes nothing
   end for;
-  C_central = comp[0].cport.c;
+  C_central = comp[centralIdx].cport.c;
 
   for k in 1:nEdge loop
     connect(edgeT[k].cport_a, comp[edge[k,1]].cport);
