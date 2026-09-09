@@ -9,7 +9,11 @@ model PK_1C_GentamicinEquations
   Modelica.Units.SI.Time t1_2 "elimination half-life";
 equation
   t1_2 = Modelica.Math.log(2) * Vd / Cl;
-  C = M / Vd; //(12)
+  
+  //C = M / Vd; //(12)
+  
+  C * Vd = M ;
+  // = is equation
   der(M) = - Cl * C; //(13)
   annotation(
     experiment(StartTime = 0, StopTime = 86400, Tolerance = 1e-06, Interval = 173.146),

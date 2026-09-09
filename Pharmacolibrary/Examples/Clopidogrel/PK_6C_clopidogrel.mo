@@ -14,7 +14,7 @@ model PK_6C_clopidogrel
     Placement(transformation(origin = {30, -52}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.NoPerfusedTissueCompartment perihperal_carboxylic_acid(V = 0.05189) annotation(
     Placement(transformation(origin = {76, -52}, extent = {{-10, -10}, {10, 10}})));
-  Sources.PeriodicDose_Enteral periodicDose_Enteral(ka(displayUnit = "1/h") = 0.0054555555555555555, Tlag(displayUnit = "h") = 705.6, firstAdminTime = 0, doseCount = 1, adminMass = 6e-5, F = 1) annotation(
+  Sources.PeriodicDose_Enteral periodicDose_Enteral(ka(displayUnit = "1/h") = 0.0054555555555555555, Tlag(displayUnit = "h") = 705.6, firstAdminTime = 0, doseCount = 1, adminMass = 3e-4, F = 1) annotation(
     Placement(transformation(origin = {-8, 52}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.ClearanceDrivenElimination CLm1(CL(displayUnit = "l/h") = 2.065277777777778e-5) annotation(
     Placement(transformation(origin = {-30, -48}, extent = {{-10, -10}, {10, 10}})));
