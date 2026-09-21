@@ -3,8 +3,12 @@ within Pharmacolibrary.Interfaces;
 partial model PartialExposureResponseSweep
   "static exposure-response curve in which TIME IS THE SWEEP AXIS, not time"
   parameter Real E0 = 0 "response with no drug";
-  parameter Real Emax "maximal effect term — how it enters the response is set by the extending class";
-  parameter Real EC50 "exposure at half of the maximal EFFECT TERM (D50, for a dose sweep)";
+  // Emax and EC50 carry defaults (1, 1) so a concrete sweep class can be compiled AS IS into
+  // a generic FMU template — one FMU per class, a parameter set per record — the way the PK
+  // templates are. A parameter with no value makes the class uninstantiable ("neither value
+  // nor start value"), and a record always overrides both anyway.
+  parameter Real Emax = 1 "maximal effect term — how it enters the response is set by the extending class";
+  parameter Real EC50 = 1 "exposure at half of the maximal EFFECT TERM (D50, for a dose sweep)";
   parameter Real gamma = 1 "Hill coefficient";
   parameter Real exposure_per_s = 1.0
     "exposure units per second of simulated time — the sweep rate";
