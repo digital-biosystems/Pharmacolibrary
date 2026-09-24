@@ -1,6 +1,4 @@
-ClearanceModifierComponent
-ClearanceModifier
-AbsorptionModifier
-EC50Modifier
-ProteinBindingModifier
-EmaxModifier
+ScaleComponent
+CarriageComponent
+DeficiencyComponent
+RiskSummary
