@@ -1,4 +1,5 @@
 Models
+Binding
 NoPerfusedTissueCompartment
 PeripheralTissueCompartment
 LumenCompartment
@@ -21,3 +22,4 @@ TissueLymphCompartment
 LymphFlow
 LymphNode
 EffectSite
+MetaboliteFormation
