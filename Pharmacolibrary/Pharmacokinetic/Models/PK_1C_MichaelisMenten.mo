@@ -8,22 +8,22 @@ model PK_1C_MichaelisMenten "One-compartment model with saturable (Michaelis-Men
     Placement(transformation(origin = {-44, -10}, extent = {{-10, -10}, {10, 10}})));
   parameter Modelica.Units.SI.Mass weight = 75 "patient weight (kg)";
   parameter Modelica.Units.SI.SpecificVolume VdPerKg(displayUnit="l/kg") = 0.9 "Volume of distribution (L/kg)";
-  parameter Modelica.Units.SI.MassFraction F = 0.8 "bioavailiability (0-1)";
+  parameter Modelica.Units.SI.MassFraction F = 1 "bioavailability (0-1)";
   parameter Pharmacolibrary.Types.MassFlowRate Vmax(displayUnit="mg/h") = 1e-8 "maximum elimination rate (default 36 mg/h)";
   parameter Pharmacolibrary.Types.MassConcentration Km = 0.01 "Michaelis constant, concentration at half Vmax (default 10 mg/L)";
   parameter Modelica.Units.SI.Time adminTime = 60 "first administration time (s)";
   parameter Modelica.Units.SI.Time adminDuration = 600 "administration duration (s)";
   parameter Modelica.Units.SI.Time adminPeriod = 8*60*60 "period of administration (default 8 hours)(s)";
-  parameter Pharmacolibrary.Types.Mass adminMass(displayUnit="mg") = 1000 "administration mass (mg)";
+  parameter Pharmacolibrary.Types.Mass adminMass(displayUnit="mg") = 1e-4 "administration mass (mg)";
 
   parameter Integer adminCount = 8 "number of dose administered (1)";
   //hidden parameters
   parameter Pharmacolibrary.Types.Volume Vd = VdPerKg*weight "Volume of distribution (m3)";
-  parameter Pharmacolibrary.Types.MassConcentration Cmin = 0.004 "minimal therapeutic range";
-  parameter Pharmacolibrary.Types.MassConcentration Cmax = 0.008 "maximal therapeutic range";
-  parameter Pharmacolibrary.Types.MassConcentration Ctox_peak = 0.012 "toxicity peak level";
-  parameter Pharmacolibrary.Types.MassConcentration Ctox_trough = 0.006 "toxicity trough level";
-  replaceable Sources.PeriodicDose periodicDose(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
+  parameter Pharmacolibrary.Types.MassConcentration Cmin = 0.004 "minimal therapeutic range" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
+  parameter Pharmacolibrary.Types.MassConcentration Cmax = 0.008 "maximal therapeutic range" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
+  parameter Pharmacolibrary.Types.MassConcentration Ctox_peak = 0.012 "toxicity peak level" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
+  parameter Pharmacolibrary.Types.MassConcentration Ctox_trough = 0.006 "toxicity trough level" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
+  replaceable Sources.PeriodicDose periodicDose(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
     Placement(transformation(origin = {-18, 22}, extent = {{-10, -10}, {10, 10}})));
   Types.ConcentrationOutput C_central annotation(
     Placement(transformation(origin = {-92, 92}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-106, 80}, extent = {{-18, -18}, {18, 18}}, rotation = 180)));
@@ -31,9 +31,11 @@ model PK_1C_MichaelisMenten "One-compartment model with saturable (Michaelis-Men
   Modelica.Units.SI.Time t1_2 "apparent (concentration-dependent) elimination half-life";
   Interfaces.ConcentrationPort_b centralCPort annotation(
     Placement(transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-100, 0}, extent = {{-22, -22}, {22, 22}})));
+  parameter Modelica.Units.SI.MolarMass MM = 1 "molar mass [kg/mol]; 1 = unknown placeholder (avoids division by zero)" annotation(Dialog(tab = "Info", group = "Substance metadata (not used in equations)"));
+  parameter Pharmacolibrary.Types.Dose LD50 = 0 "median lethal dose [mg/kg]; 0 = unknown" annotation(Dialog(tab = "Info", group = "Substance metadata (not used in equations)"));
 equation
   Cl_app = Vmax / (Km + C_central);
-  t1_2 = Modelica.Math.log(2) * Vd / Cl_app;
+  t1_2 = Modelica.Math.log(2) * Vd / max(Cl_app, Modelica.Constants.small) "0 clearance will not produce division by zero";
   C_central = central.cport.c;
   connect(central.cport, elim.cport) annotation(
     Line(points = {{-18, 0}, {-44, 0}}, color = {152, 112, 187}));
