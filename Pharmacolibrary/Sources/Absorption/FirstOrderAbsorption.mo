@@ -3,8 +3,14 @@ model FirstOrderAbsorption "enteral route: absorption lag Tlag then first-order 
   extends Pharmacolibrary.Sources.Absorption.PartialAbsorption;
   parameter Pharmacolibrary.Types.TransferRate ka(displayUnit = "1/min") = 1 "first order absorption rate";
   parameter Modelica.Units.SI.Time Tlag(displayUnit = "min") = 600 "time delay between administration and absorption (default 10 min)";
+  // delay() needs a STRICTLY POSITIVE delay: delayTime = 0 allocates a zero-length history
+  // buffer and the simulation aborts at run time. Clamp what the block is given, and keep the
+  // guard below on the true Tlag, so Tlag = 0 degenerates to "no lag" instead of failing.
+protected
+  parameter Modelica.Units.SI.Time TlagEff = max(Tlag, 1e-9) "delay actually applied to the block";
+public
   constant Modelica.Units.SI.Volume V = 1 "lumen volume (fixed)";
-  Modelica.Blocks.Nonlinear.FixedDelay delay(delayTime = Tlag) annotation(
+  Modelica.Blocks.Nonlinear.FixedDelay delay(delayTime = TlagEff) annotation(
     Placement(transformation(origin = {-60, 40}, extent = {{-10, -10}, {10, 10}})));
   Pharmacolibrary.Sources.VariableInfusion variableDose(F = F) annotation(
     Placement(transformation(origin = {-20, 20}, extent = {{-14, -14}, {14, 14}})));
@@ -15,8 +21,9 @@ model FirstOrderAbsorption "enteral route: absorption lag Tlag then first-order 
 equation
   connect(mdot, delay.u) annotation(
     Line(points = {{-100, 40}, {-72, 40}}, color = {0, 0, 127}));
-  connect(delay.y, variableDose.massFlow) annotation(
-    Line(points = {{-49, 40}, {-33, 40}, {-33, 25}}, color = {0, 0, 127}));
+  //connect(delay.y, variableDose.massFlow) annotation(
+  //  Line(points = {{-49, 40}, {-33, 40}, {-33, 25}}, color = {0, 0, 127}));
+  variableDose.massFlow = if time < Tlag then 0 else delay.y;   //fix, before tlag no drug is delivered
   connect(variableDose.cport, absorptionLumen.cport) annotation(
     Line(points = {{-20, 6}, {-46, 6}, {-46, -4}}, color = {114, 159, 207}));
   connect(variableDose.cport, transferFirstOrderNonSym.cport_a) annotation(

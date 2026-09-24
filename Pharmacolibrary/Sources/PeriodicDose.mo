@@ -7,7 +7,12 @@ model PeriodicDose "periodic dose model"
 protected
   parameter Modelica.Units.SI.Time periodEff = if adminPeriod > 0 then adminPeriod else max(adminDuration, Modelica.Constants.eps)
     "effective pulse period; falls back to adminDuration when adminPeriod = 0 (single dose) to avoid division by zero";
-  Modelica.Blocks.Sources.Pulse pulse(amplitude = adminMass/adminDuration, width = adminDuration/periodEff*100, period = periodEff, nperiod = doseCount, startTime = firstAdminTime) annotation(
+  Modelica.Blocks.Sources.Pulse pulse(
+  amplitude = adminMass/adminDuration, 
+  width = adminDuration/periodEff*100, 
+  period = periodEff, 
+  nperiod = doseCount, 
+  startTime = firstAdminTime) annotation(
     Placement(transformation(origin = {-40, -46}, extent = {{-10, -10}, {10, 10}})));
 
 initial equation

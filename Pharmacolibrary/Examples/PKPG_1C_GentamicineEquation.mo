@@ -7,15 +7,15 @@ extends Modelica.Icons.Example;
   parameter Pharmacolibrary.Types.Volume Vd = 0.0175;
   parameter Pharmacolibrary.Types.VolumeFlowRate Cl_nom = 0.1/(1000*60);
   parameter Boolean usePGx = true "true = apply genotype scaling";
-  Pharmacolibrary.Pharmacogenomics.Modifiers.ClearanceModifier clMod(
-    base = Cl_nom,
-    redeclare record Gtype = Pharmacolibrary.Pharmacogenomics.Genotypes.SLC22A2Genotype,
-    redeclare parameter Pharmacolibrary.Pharmacogenomics.Genotypes.SLC22A2Genotype g(
-      allele = {"*1", "*1"}/* <- change one entry to "808T" for Intermediate */)
-    );
+  parameter Pharmacolibrary.Pharmacogenomics.Effects.SLC22A2_CL pgx "gene + what it scales";
+  parameter Pharmacolibrary.Pharmacogenomics.DiplotypesCurated.SLC22A2 dip(
+    allele = {"*1", "*1"}) /* <- change one entry to "808T" for Intermediate */;
   Types.VolumeFlowRate Cl_eff "effective clearance";
 equation
-  Cl_eff = if usePGx then clMod.modified else Cl_nom;
+  // Equation mode needs no modifier component at all: the scale is a function of the
+  // diplotype, so it multiplies the nominal clearance directly.
+  Cl_eff = if usePGx then Cl_nom*Pharmacolibrary.Pharmacogenomics.PGx.scaleFor(pgx, dip)
+                     else Cl_nom;
   C = M/Vd;
   der(M) = -Cl_eff*C;
   annotation(

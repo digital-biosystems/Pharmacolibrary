@@ -22,7 +22,13 @@ model PK_1C
   parameter Pharmacolibrary.Types.MassConcentration Cmax = 0.008 "maximal therapeutic range" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
   parameter Pharmacolibrary.Types.MassConcentration Ctox_peak = 0.012 "toxicity peak level" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
   parameter Pharmacolibrary.Types.MassConcentration Ctox_trough = 0.006 "toxicity trough level" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
-  replaceable Sources.PeriodicDose periodicDose(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource annotation(
+  // The schedule bindings live in the CONSTRAINING clause, not on the declaration: a
+  // redeclare (PK_1C_enteral swaps in PeriodicDose_Enteral) replaces the declaration's
+  // modifiers but merges the constraining clause's, so the enteral models keep dosing
+  // adminMass/adminCount/adminPeriod/adminDuration/adminTime/F. With them on the
+  // declaration, every enteral model silently dosed the partial's defaults instead:
+  // 1 mg, every 8 h, unlimited, as a 1 s pulse from t = 0.
+  replaceable Sources.PeriodicDose periodicDose constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
     Placement(transformation(origin = {-18, 22}, extent = {{-10, -10}, {10, 10}})));
   Types.ConcentrationOutput C_central annotation(
     Placement(transformation(origin = {-92, 92}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-106, 80}, extent = {{-18, -18}, {18, 18}}, rotation = 180)));

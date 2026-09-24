@@ -17,6 +17,10 @@ PartialDrugSource
 PartialPeriodicDoseSource
 PartialEffect
 PartialIndirectEffect
+PartialKPD
+PartialDoseEffect
+PartialConcEffect
+PartialExposureResponseSweep
 PharmaBus
 PartialBloodTissueCompartment
 FlowPort_la

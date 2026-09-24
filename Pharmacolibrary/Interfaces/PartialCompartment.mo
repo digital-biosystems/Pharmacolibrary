@@ -16,15 +16,24 @@ partial model PartialCompartment
   //Pharmacolibrary.Types.MassConcentration freeTissueConc "drug free concentration in tissue";
   //CBFree
   Pharmacolibrary.Types.Mass M "drug mass total";
-  Pharmacolibrary.Types.AreaUnderCurve AUC "area under curve";
-  discrete Pharmacolibrary.Types.MassConcentration Cmax;
-  discrete Pharmacolibrary.Types.MassConcentration Cmin;
+  // Explicit initial conditions. Without them every model built on this base translated with
+  // "The initial conditions are not fully specified" and the tool silently guessed: AUC, Cmax,
+  // Cmin and `rising` were all left to OMC. The values below are what a guess happened to
+  // produce, so trajectories do not change — what changes is that the intent is now stated
+  // rather than inferred, and a future tool cannot guess differently.
+  Pharmacolibrary.Types.AreaUnderCurve AUC(start = 0, fixed = true) "area under curve";
+  // Cmax/Cmin hold the concentration at the LAST LOCAL extremum (see the when-clauses below),
+  // not a running max/min, so before any extremum has occurred the honest value is the initial
+  // concentration.
+  discrete Pharmacolibrary.Types.MassConcentration Cmax(start = C0, fixed = true);
+  discrete Pharmacolibrary.Types.MassConcentration Cmin(start = C0, fixed = true);
   //Modelica.Units.SI.Concentration Cmol;
 
 protected
   parameter Pharmacolibrary.Types.Volume VNonZero = max(1.0e-6, V) "total distribution volume";
   Real dC "helper derivative of concentration";
- discrete Boolean rising;
+ discrete Boolean rising(start = false, fixed = true)
+    "C is not yet rising at t = 0; the equation below takes over immediately after";
 equation
   C = M/VNonZero;
   C_molar = C / molarWeight;
