@@ -23,7 +23,9 @@ model PK_1C_MichaelisMenten "One-compartment model with saturable (Michaelis-Men
   parameter Pharmacolibrary.Types.MassConcentration Cmax = 0.008 "maximal therapeutic range" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
   parameter Pharmacolibrary.Types.MassConcentration Ctox_peak = 0.012 "toxicity peak level" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
   parameter Pharmacolibrary.Types.MassConcentration Ctox_trough = 0.006 "toxicity trough level" annotation(Dialog(tab = "Info", group = "Therapeutic range (metadata, not used in equations)"));
-  replaceable Sources.PeriodicDose periodicDose(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
+  // Schedule bindings live in the constraining clause so a redeclare (e.g. to
+  // PeriodicDose_Enteral) keeps them; see PK_1C.
+  replaceable Sources.PeriodicDose periodicDose constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
     Placement(transformation(origin = {-18, 22}, extent = {{-10, -10}, {10, 10}})));
   Types.ConcentrationOutput C_central annotation(
     Placement(transformation(origin = {-92, 92}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-106, 80}, extent = {{-18, -18}, {18, 18}}, rotation = 180)));
