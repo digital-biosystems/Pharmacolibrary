@@ -12,7 +12,7 @@ protected
   width = adminDuration/periodEff*100, 
   period = periodEff, 
   nperiod = doseCount, 
-  startTime = firstAdminTime) annotation(
+  startTime = firstAdminTime + route.Tlag) "doses start route.Tlag late: the absorption lag as exact time events" annotation(
     Placement(transformation(origin = {-40, -46}, extent = {{-10, -10}, {10, 10}})));
 
 initial equation
