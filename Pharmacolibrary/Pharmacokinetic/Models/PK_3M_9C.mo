@@ -72,7 +72,7 @@ model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral
   parameter Integer adminCount = 1 "number of doses (-1 = unlimited)";
   parameter Modelica.Units.SI.Time adminPeriod(displayUnit = "h") = 8*3600 "period of administration";
   parameter Modelica.Units.SI.Time adminDuration = 1 "administration duration (oral: a 1 s bolus into the gut; IV infusion: its length)";
-  parameter Modelica.Units.SI.Time adminTime = 0 "first administration time";
+  parameter Modelica.Units.SI.Time adminTime = 60 "first administration time (s); 60 as in PK_1C, not 0 — a co-simulation FMU starting a dose pulse at t = 0 doses one communication step too long";
   parameter Modelica.Units.SI.MassFraction F = 1 "bioavailability (0-1)";
   parameter Pharmacolibrary.Types.TransferRate ka(displayUnit = "1/h") = 0.016666666666666666 "first order absorption rate (oral dosing only)";
   parameter Modelica.Units.SI.Time Tlag(displayUnit = "min") = 0 "delay between oral administration and absorption (oral dosing only)";
@@ -179,5 +179,5 @@ equation
 <p><b>Dosing</b> enters the parent central compartment: oral by default (<code>ka</code>, <code>Tlag</code>, <code>F</code>, 1 s bolus into the gut); for IV use <code>redeclare Sources.PeriodicDose periodicDose</code> (with <code>adminDuration</code> as the infusion time) &mdash; the schedule parameters are kept.</p>
 <p><b>Assumptions and limits.</b> Formation conserves <i>mass</i>: 1 kg of parent forms 1 kg of metabolite. If the source reports molar amounts, or molar masses differ substantially, convert the metabolite parameters or concentrations accordingly. Metabolites are formed only from the parent central compartment (no pre-systemic / first-pass formation &mdash; use PK_3M_3C for that), metabolites do not convert back, and there is no metabolite-to-metabolite formation (M1 &rarr; M2).</p>
 <p><b>Outputs:</b> <code>C_central</code>, <code>C_M1</code>, <code>C_M2</code>, and the connectors <code>centralCPort</code>, <code>centralM1CPort</code>, <code>centralM2CPort</code> for driving PD models.</p>
-</body></html>"));
+<h4>Simulating as a co-simulation FMU</h4><p>The dose is a rectangular pulse <code>adminMass/adminDuration</code> wide <code>adminDuration</code>. An OpenModelica co-simulation FMU (CVODE, no root finding) sees that pulse only at communication points, so the <b>communication step</b> must resolve it: use at most <code>adminDuration/50</code> and keep dose times on the step grid. Measured on PK_3M_3C (single 75 mg dose): with a 60 s step a 1 s pulse was either missed (0&times; the dose) or held for the whole step (60&times;); with <code>adminDuration/50</code> the mass balance closes to 1.0000. A pulse that starts at <code>t = 0</code> or between grid points is held one step too long (+2% at <code>adminDuration/50</code>), which is why the templates start at <code>adminTime = 60</code>. In FMPy the communication step is <code>output_interval</code>, not <code>step_size</code>.</p></body></html>"));
 end PK_3M_9C;
