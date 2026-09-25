@@ -7,7 +7,7 @@ model PK_1C_MichaelisMenten "One-compartment model with saturable (Michaelis-Men
  annotation(
     Placement(transformation(origin = {-44, -10}, extent = {{-10, -10}, {10, 10}})));
   parameter Modelica.Units.SI.Mass weight = 75 "patient weight (kg)";
-  parameter Modelica.Units.SI.SpecificVolume VdPerKg(displayUnit="l/kg") = 0.9 "Volume of distribution (L/kg)";
+  parameter Modelica.Units.SI.SpecificVolume VdPerKg(displayUnit="l/kg") = 0.0009 "Volume of distribution per kg (default 0.9 L/kg)";
   parameter Modelica.Units.SI.MassFraction F = 1 "bioavailability (0-1)";
   parameter Pharmacolibrary.Types.MassFlowRate Vmax(displayUnit="mg/h") = 1e-8 "maximum elimination rate (default 36 mg/h)";
   parameter Pharmacolibrary.Types.MassConcentration Km = 0.01 "Michaelis constant, concentration at half Vmax (default 10 mg/L)";

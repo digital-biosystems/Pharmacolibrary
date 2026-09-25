@@ -7,7 +7,7 @@ model PK_1C
  annotation(
     Placement(transformation(origin = {-44, -10}, extent = {{-10, -10}, {10, 10}})));
   parameter Modelica.Units.SI.Mass weight = 75 "patient weight (kg)";
-  parameter Modelica.Units.SI.SpecificVolume VdPerKg(displayUnit="l/kg") = 0.9 "Volume of distribution (L/kg)";
+  parameter Modelica.Units.SI.SpecificVolume VdPerKg(displayUnit="l/kg") = 0.0009 "Volume of distribution per kg (default 0.9 L/kg)";
   parameter Modelica.Units.SI.MassFraction F = 1 "bioavailability (0-1)";
   parameter Pharmacolibrary.Types.Clearance Cl = 2.7777777777777776e-7 "clearance";  
   parameter Modelica.Units.SI.Time adminTime = 60 "first administration time (s)";

@@ -4,7 +4,7 @@ model PK_3C
   extends PK_2C;
 
       parameter Pharmacolibrary.Types.Volume Vdp2 = Vdp2PerKg*weight "Volume of distribution (m3)";  
-      parameter Modelica.Units.SI.SpecificVolume Vdp2PerKg(displayUnit="l/kg") = 0.9 "Volume of distribution peripheral 2 (l/kg)";
+      parameter Modelica.Units.SI.SpecificVolume Vdp2PerKg(displayUnit="l/kg") = 0.0009 "Volume of distribution peripheral 2 per kg (default 0.9 L/kg)";
       parameter Pharmacolibrary.Types.VolumeFlowRate k13(displayUnit="l/min") = 1 "intercompartmental 1-3 clearance (l/min)";
       parameter Pharmacolibrary.Types.VolumeFlowRate k31(displayUnit="l/min") = 1 "intercompartmental 3-1 clearance (l/min)";
   Pharmacolibrary.Pharmacokinetic.NoPerfusedTissueCompartment peripheral2(V = Vdp2) annotation(
