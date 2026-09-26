@@ -1,7 +1,7 @@
 within Pharmacolibrary.Pharmacokinetic.Models;
 
 model PK_1C_MichaelisMenten "One-compartment model with saturable (Michaelis-Menten) elimination"
-  Pharmacokinetic.NoPerfusedTissueCompartment central(V = Vd)  annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment central(V = Vd, molarWeight = MM)  annotation(
     Placement(transformation(origin = {-18, -10}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.MichaelisMentenDrivenElimination elim(Vmax = Vmax, Km = Km)
  annotation(
@@ -33,7 +33,7 @@ model PK_1C_MichaelisMenten "One-compartment model with saturable (Michaelis-Men
   Modelica.Units.SI.Time t1_2 "apparent (concentration-dependent) elimination half-life";
   Interfaces.ConcentrationPort_b centralCPort annotation(
     Placement(transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-100, 0}, extent = {{-22, -22}, {22, 22}})));
-  parameter Modelica.Units.SI.MolarMass MM = 1 "molar mass [kg/mol]; 1 = unknown placeholder (avoids division by zero)" annotation(Dialog(tab = "Info", group = "Substance metadata (not used in equations)"));
+  parameter Modelica.Units.SI.MolarMass MM(min = 0) = 0 "molar mass [kg/mol]; 0 = not supplied (molar concentrations are then 0)" annotation(Dialog(tab = "Info", group = "Substance metadata"));
   parameter Pharmacolibrary.Types.Dose LD50 = 0 "median lethal dose [mg/kg]; 0 = unknown" annotation(Dialog(tab = "Info", group = "Substance metadata (not used in equations)"));
 equation
   Cl_app = Vmax / (Km + C_central);

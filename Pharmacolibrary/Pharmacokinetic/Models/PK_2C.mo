@@ -10,7 +10,7 @@ extends PK_1C;
 
   Pharmacolibrary.Pharmacokinetic.TransferFirstOrderNonSym transfer(CLa = k12, CLb = k21) annotation(
     Placement(transformation(origin = {8, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Pharmacolibrary.Pharmacokinetic.NoPerfusedTissueCompartment peripheral(V = Vdp) annotation(
+  Pharmacolibrary.Pharmacokinetic.NoPerfusedTissueCompartment peripheral(V = Vdp, molarWeight = MM) annotation(
     Placement(transformation(origin = {36, -10}, extent = {{-10, -10}, {10, 10}})));
   Interfaces.ConcentrationPort_b peripheralCPort annotation(
     Placement(transformation(origin = {36, 24}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-100, -60}, extent = {{-20, -20}, {20, 20}})));

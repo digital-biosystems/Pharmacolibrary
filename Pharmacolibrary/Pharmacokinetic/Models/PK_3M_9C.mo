@@ -3,25 +3,25 @@ within Pharmacolibrary.Pharmacokinetic.Models;
 model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral + peripheral 2 compartments; metabolites formed (one way) from the parent central compartment"
   extends Icons.Compound;
   // ---- parent -------------------------------------------------------------
-  Pharmacokinetic.NoPerfusedTissueCompartment central(V = Vd1) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment central(V = Vd1, molarWeight = MW) annotation(
     Placement(transformation(origin = {0, -10}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacokinetic.NoPerfusedTissueCompartment peripheral(V = Vd2) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment peripheral(V = Vd2, molarWeight = MW) annotation(
     Placement(transformation(origin = {60, -10}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacokinetic.NoPerfusedTissueCompartment peripheral2(V = Vd3) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment peripheral2(V = Vd3, molarWeight = MW) annotation(
     Placement(transformation(origin = {-60, -10}, extent = {{-10, -10}, {10, 10}})));
   // ---- metabolite 1 --------------------------------------------------------
-  Pharmacokinetic.NoPerfusedTissueCompartment central_M1(V = Vd1m1) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment central_M1(V = Vd1m1, molarWeight = MW_m1) annotation(
     Placement(transformation(origin = {0, -70}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacokinetic.NoPerfusedTissueCompartment peripheral_M1(V = Vd2m1) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment peripheral_M1(V = Vd2m1, molarWeight = MW_m1) annotation(
     Placement(transformation(origin = {60, -70}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacokinetic.NoPerfusedTissueCompartment peripheral2_M1(V = Vd3m1) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment peripheral2_M1(V = Vd3m1, molarWeight = MW_m1) annotation(
     Placement(transformation(origin = {-60, -70}, extent = {{-10, -10}, {10, 10}})));
   // ---- metabolite 2 --------------------------------------------------------
-  Pharmacokinetic.NoPerfusedTissueCompartment central_M2(V = Vd1m2) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment central_M2(V = Vd1m2, molarWeight = MW_m2) annotation(
     Placement(transformation(origin = {0, 50}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacokinetic.NoPerfusedTissueCompartment peripheral_M2(V = Vd2m2) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment peripheral_M2(V = Vd2m2, molarWeight = MW_m2) annotation(
     Placement(transformation(origin = {60, 50}, extent = {{-10, -10}, {10, 10}})));
-  Pharmacokinetic.NoPerfusedTissueCompartment peripheral2_M2(V = Vd3m2) annotation(
+  Pharmacokinetic.NoPerfusedTissueCompartment peripheral2_M2(V = Vd3m2, molarWeight = MW_m2) annotation(
     Placement(transformation(origin = {-60, 50}, extent = {{-10, -10}, {10, 10}})));
   // ---- dosing: enters the parent central compartment -------------------------
   // The schedule bindings live in the CONSTRAINING clause so a redeclare keeps them (see PK_1C).
@@ -36,9 +36,9 @@ model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral
   Pharmacokinetic.ClearanceDrivenElimination CL_1(CL = CL1) annotation(
     Placement(transformation(origin = {20, -30}, extent = {{-10, -10}, {10, 10}})));
   // ---- metabolite formation (one way, from parent central) -------------------
-  Pharmacokinetic.TransferFirstOrderNonSym Qf1(CLa = q1_m11, CLb = 0) "formation of metabolite 1" annotation(
+  Pharmacokinetic.TransferMetabolicConversion Qf1(CLa = q1_m11, CLb = 0, massRatio = massRatio_m1) "formation of metabolite 1" annotation(
     Placement(transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Pharmacokinetic.TransferFirstOrderNonSym Qf2(CLa = q1_m21, CLb = 0) "formation of metabolite 2" annotation(
+  Pharmacokinetic.TransferMetabolicConversion Qf2(CLa = q1_m21, CLb = 0, massRatio = massRatio_m2) "formation of metabolite 2" annotation(
     Placement(transformation(origin = {0, 30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   // ---- metabolite 1 transfers and elimination --------------------------------
   Pharmacokinetic.TransferFirstOrderNonSym Qm1_12(CLa = qm11_m12, CLb = qm12_m11) annotation(
@@ -68,6 +68,14 @@ model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral
   Types.ConcentrationOutput C_M2 "metabolite 2 concentration, central compartment" annotation(
     Placement(transformation(origin = {100, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {106, 60}, extent = {{-18, -18}, {18, 18}})));
   // ---- dosing parameters (as in PK_1C / PK_1C_enteral) ------------------------
+  // ---- molar masses (kg/mol; 0 = not supplied) ------------------------------------------
+  parameter Modelica.Units.SI.MolarMass MW(min = 0) = 0 "parent molar mass [kg/mol]; 0 = not supplied" annotation(Dialog(tab = "Info", group = "Molar masses"));
+  parameter Modelica.Units.SI.MolarMass MW_m1(min = 0) = 0 "metabolite 1 molar mass [kg/mol]; 0 = not supplied" annotation(Dialog(tab = "Info", group = "Molar masses"));
+  parameter Modelica.Units.SI.MolarMass MW_m2(min = 0) = 0 "metabolite 2 molar mass [kg/mol]; 0 = not supplied" annotation(Dialog(tab = "Info", group = "Molar masses"));
+  // formation is MOLAR: 1 mol of parent forms 1 mol of metabolite, i.e. MW_m/MW kg per kg.
+  // Mass-conserving (ratio 1) while either molar mass is unknown.
+  final parameter Real massRatio_m1 = if MW > 0 and MW_m1 > 0 then MW_m1 / MW else 1;
+  final parameter Real massRatio_m2 = if MW > 0 and MW_m2 > 0 then MW_m2 / MW else 1;
   parameter Pharmacolibrary.Types.Mass adminMass(displayUnit = "mg") = 1e-4 "administration mass";
   parameter Integer adminCount = 1 "number of doses (-1 = unlimited)";
   parameter Modelica.Units.SI.Time adminPeriod(displayUnit = "h") = 8*3600 "period of administration";
@@ -177,7 +185,7 @@ equation
 <li>parent only: both formation clearances 0 &mdash; then the model equals <code>PK_1C</code>/<code>PK_2C</code>/<code>PK_3C</code>.</li>
 </ul>
 <p><b>Dosing</b> enters the parent central compartment: oral by default (<code>ka</code>, <code>Tlag</code>, <code>F</code>, 1 s bolus into the gut); for IV use <code>redeclare Sources.PeriodicDose periodicDose</code> (with <code>adminDuration</code> as the infusion time) &mdash; the schedule parameters are kept.</p>
-<p><b>Assumptions and limits.</b> Formation conserves <i>mass</i>: 1 kg of parent forms 1 kg of metabolite. If the source reports molar amounts, or molar masses differ substantially, convert the metabolite parameters or concentrations accordingly. Metabolites are formed only from the parent central compartment (no pre-systemic / first-pass formation &mdash; use PK_3M_3C for that), metabolites do not convert back, and there is no metabolite-to-metabolite formation (M1 &rarr; M2).</p>
+<p><b>Molar masses.</b> Formation is <b>molar</b>: 1 mol of parent forms 1 mol of metabolite, so with the molar masses set (<code>MW</code>, <code>MW_m1</code>, <code>MW_m2</code>, kg/mol) the metabolite gains <code>MW_m/MW</code> kg per kg of parent converted (<code>TransferMetabolicConversion</code>). Every compartment then also reports its molar concentration <code>C_molar</code> (mol/m<sup>3</sup>). A molar mass left at 0 means &quot;not supplied&quot;: formation falls back to mass-conserving (ratio 1) and <code>C_molar</code> is 0.</p><p><b>Assumptions and limits.</b> Metabolites are formed only from the parent central compartment (no pre-systemic / first-pass formation &mdash; use PK_3M_3C for that), metabolites do not convert back, and there is no metabolite-to-metabolite formation (M1 &rarr; M2).</p>
 <p><b>Outputs:</b> <code>C_central</code>, <code>C_M1</code>, <code>C_M2</code>, and the connectors <code>centralCPort</code>, <code>centralM1CPort</code>, <code>centralM2CPort</code> for driving PD models.</p>
 <h4>Simulating as a co-simulation FMU</h4><p>The dose is a rectangular pulse <code>adminMass/adminDuration</code> wide <code>adminDuration</code>. An OpenModelica co-simulation FMU (CVODE, no root finding) sees that pulse only at communication points, so the <b>communication step</b> must resolve it: use at most <code>adminDuration/50</code> and keep dose times on the step grid. Measured on PK_3M_3C (single 75 mg dose): with a 60 s step a 1 s pulse was either missed (0&times; the dose) or held for the whole step (60&times;); with <code>adminDuration/50</code> the mass balance closes to 1.0000. A pulse that starts at <code>t = 0</code> or between grid points is held one step too long (+2% at <code>adminDuration/50</code>), which is why the templates start at <code>adminTime = 60</code>. In FMPy the communication step is <code>output_interval</code>, not <code>step_size</code>.</p></body></html>"));
 end PK_3M_9C;
