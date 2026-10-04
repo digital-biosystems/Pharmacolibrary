@@ -1,27 +1,21 @@
 within Pharmacolibrary.Drugs.C_CardiovascularSystem.C01B_AntiarrhythmicsClassIAndIii.C01BA08_Prajmaline;
 
 model Prajmaline
-  extends Pharmacolibrary.Drugs.ATC.C.C01BA08
-  // parameters inherited from base class, duplicate, uncomment and change if necesarry
-  /*
-  
-    weight         = 70,
-    F              = 1,
-    Cl             = 3.3499999999999997e-06,
-    adminDuration  = 600,
-    adminMass      = 100 / 1000000,
-    adminCount     = 1,
-    Vd             = 0.0019,
-    Cmin           = 0.001,
-    Cmax           = 0.01,
-    Ctox_peak      = 0.02,
-    Ctox_trough    = 0.01,            
-    Vdp             = 0.0026,
-    k12             = 4.5500000000000005e-06,
-    k21             = 4.5500000000000005e-06
-      
-  */
-  ;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_2C(
+    weight = 70,
+    F = 1,
+    Cl = 3.3499999999999997e-06,
+    adminDuration = 600,
+    adminMass = 100 / 1000000,
+    adminCount = 1,
+    Vd = 0.0019,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01,
+    Vdp = 0.0026,
+    k12 = 4.5500000000000005e-06,
+    k21 = 4.5500000000000005e-06);
 
   annotation (Documentation(
     info       = "<html><body><table><tr><td>name:</td><td>Prajmaline</td></tr><tr><td>ATC code:</td><td>C01BA08</td></tr><td>route:</td><td>intravenous</td></tr>
@@ -31,7 +25,7 @@ model Prajmaline
     <tr><td>clearance:</td><td>201</td><td>ml/min</td></tr>
     <tr><td colspan='3'>other parameters in model implementation</td></tr>
     </table><p>Prajmaline is an antiarrhythmic drug of the class Ia, developed from the plant alkaloid ajmaline. It is used to treat certain cardiac arrhythmias, such as ventricular and supraventricular tachycardias. Prajmaline is not widely approved or used in clinical practice today, with usage mainly reported in some European countries and limited global distribution.</p><h4>Pharmacokinetics</h4><p>Pharmacokinetic parameters reported in healthy adult male volunteers following single intravenous administration.</p><h4>References</h4><ol></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.C.C01BA08 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
     

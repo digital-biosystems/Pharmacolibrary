@@ -1,23 +1,18 @@
 within Pharmacolibrary.Drugs.J_AntiinfectivesForSystemicUse.J07B_ViralVaccines.J07BD51_MeaslesCombinationsWithM;
 
 model MeaslesCombinationsWithM
-  extends Pharmacolibrary.Drugs.ATC.J.J07BD51
-  // parameters inherited from base class, duplicate, uncomment and change if necesarry
-  /*
-  
-    weight         = 70,
-    F              = 1,
-    Cl             = 0,
-    adminDuration  = 600,
-    adminMass      = 0.5 / 1000000,
-    adminCount     = 1,
-    Vd             = 0.001,
-    Cmin           = 0.001,
-    Cmax           = 0.01,
-    Ctox_peak      = 0.02,
-    Ctox_trough    = 0.01  
-  */
-  ;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_1C(
+    weight = 70,
+    F = 1,
+    Cl = 0,
+    adminDuration = 600,
+    adminMass = 0.5 / 1000000,
+    adminCount = 1,
+    Vd = 0.001,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01);
 
   annotation (Documentation(
     info       = "<html><body><table><tr><td>name:</td><td>MeaslesCombinationsWithMumpsLiveAttenuated</td></tr><tr><td>ATC code:</td><td>J07BD51</td></tr><td>route:</td><td>subcutaneous</td></tr>
@@ -27,7 +22,7 @@ model MeaslesCombinationsWithM
     <tr><td>clearance:</td><td>0</td><td>l/h</td></tr>
     <tr><td colspan='3'>other parameters in model implementation</td></tr>
     </table><p>This is a live attenuated vaccine containing components against both measles and mumps viruses, used for immunization to prevent measles and mumps infections. It is usually combined with rubella (as MMR) and is approved for use in children and some adults today.</p><h4>Pharmacokinetics</h4><p>Live attenuated virus vaccine administered intramuscularly or subcutaneously in healthy children and adults. Pharmacokinetic parameters are not applicable as the vaccine acts by inducing immune response rather than classic absorption, distribution, metabolism, and excretion.</p><h4>References</h4><ol></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.J.J07BD51 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
     

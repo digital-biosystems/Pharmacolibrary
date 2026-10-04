@@ -1,25 +1,20 @@
 within Pharmacolibrary.Drugs.N_NervousSystem.N03A_Antiepileptics.N03AC01_Paramethadione;
 
 model Paramethadione
-  extends Pharmacolibrary.Drugs.ATC.N.N03AC01
-  // parameters inherited from base class, duplicate, uncomment and change if necesarry
-  /*
-  
-    weight         = 70,
-    F              = 0.8,
-    Cl             = 5e-07,
-    adminDuration  = 600,
-    adminMass      = 300 / 1000000,
-    adminCount     = 1,
-    Vd             = 0.0007,
-    Cmin           = 0.001,
-    Cmax           = 0.01,
-    Ctox_peak      = 0.02,
-    Ctox_trough    = 0.01,
-    ka             = 0.0008333333333333334,
-    Tlag           = 600  
-  */
-  ;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_1C_enteral(
+    weight = 70,
+    F = 0.8,
+    Cl = 5e-07,
+    adminDuration = 600,
+    adminMass = 300 / 1000000,
+    adminCount = 1,
+    Vd = 0.0007,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01,
+    ka = 0.0008333333333333334,
+    Tlag = 600);
 
   annotation (Documentation(
     info       = "<html><body><table><tr><td>name:</td><td>Paramethadione</td></tr><tr><td>ATC code:</td><td>N03AC01</td></tr><td>route:</td><td>oral</td></tr>
@@ -29,7 +24,7 @@ model Paramethadione
     <tr><td>clearance:</td><td>30</td><td>mL/min</td></tr>
     <tr><td colspan='3'>other parameters in model implementation</td></tr>
     </table><p>Paramethadione is an oxazolidinedione anticonvulsant primarily used historically for the treatment of absence (petit mal) seizures. It is chemically related to trimethadione. Due to safety concerns, especially severe adverse effects including hematological toxicity and teratogenicity, its clinical use has been largely discontinued and it is no longer approved or widely used today.</p><h4>Pharmacokinetics</h4><p>Pharmacokinetic parameters estimated for adult population, oral administration, no published specific human pharmacokinetic studies available.</p><h4>References</h4><ol></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.N.N03AC01 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
     

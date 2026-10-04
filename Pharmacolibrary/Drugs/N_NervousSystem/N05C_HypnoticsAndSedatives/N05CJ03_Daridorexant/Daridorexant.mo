@@ -1,29 +1,23 @@
 within Pharmacolibrary.Drugs.N_NervousSystem.N05C_HypnoticsAndSedatives.N05CJ03_Daridorexant;
 
 model Daridorexant
-  extends Pharmacolibrary.Drugs.ATC.N.N05CJ03
-  // parameters inherited from base class, duplicate, uncomment and change if necesarry
-  /*
-  
-    weight         = 70,
-    F              = 0.62,
-    Cl             = 1.2777777777777777e-06,
-    adminDuration  = 600,
-    adminMass      = 50 / 1000000,
-    adminCount     = 1,
-    Vd             = 0.031,
-    Cmin           = 0.001,
-    Cmax           = 0.01,
-    Ctox_peak      = 0.02,
-    Ctox_trough    = 0.01,
-    ka             = 0.0026,
-    Tlag           = 10.200000000000001,            
-    Vdp             = 0.028,
-    k12             = 4.888888888888889e-06,
-    k21             = 4.888888888888889e-06
-      
-  */
-  ;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_2C_enteral(
+    weight = 70,
+    F = 0.62,
+    Cl = 1.2777777777777777e-06,
+    adminDuration = 600,
+    adminMass = 50 / 1000000,
+    adminCount = 1,
+    Vd = 0.031,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01,
+    ka = 0.0026,
+    Tlag = 10.200000000000001,
+    Vdp = 0.028,
+    k12 = 4.888888888888889e-06,
+    k21 = 4.888888888888889e-06);
 
   annotation (Documentation(
     info       = "<html><body><table><tr><td>name:</td><td>Daridorexant</td></tr><tr><td>ATC code:</td><td>N05CJ03</td></tr><td>route:</td><td>oral</td></tr>
@@ -33,7 +27,7 @@ model Daridorexant
     <tr><td>clearance:</td><td>4.6</td><td>L/h</td></tr>
     <tr><td colspan='3'>other parameters in model implementation</td></tr>
     </table><p>Daridorexant is a dual orexin receptor antagonist (DORA) approved for the treatment of adult patients with insomnia, characterized by difficulties with sleep onset and/or sleep maintenance. It acts by selectively blocking the binding of wake-promoting neuropeptides orexin A and B to their receptors OX1R and OX2R. It is currently approved and marketed in the US and EU.</p><h4>Pharmacokinetics</h4><p>Pharmacokinetics reported for healthy adult subjects after oral administration at therapeutic dose.</p><h4>References</h4><ol><li><p>Park, J, et al., &amp; Cates PharmD, DW (2023). Daridorexant: Comprehensive Review of A New Oral Agent for the Treatment of Insomnia. <i>The Annals of pharmacotherapy</i> 57(9) 1076–1087. DOI:<a href=\"https://doi.org/10.1177/10600280221143794\">10.1177/10600280221143794</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/36602018/\">https://pubmed.ncbi.nlm.nih.gov/36602018</a></p></li></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.N.N05CJ03 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
     

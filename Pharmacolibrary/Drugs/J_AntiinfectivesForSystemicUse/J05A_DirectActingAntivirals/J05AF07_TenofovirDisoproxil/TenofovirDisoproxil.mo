@@ -1,25 +1,20 @@
 within Pharmacolibrary.Drugs.J_AntiinfectivesForSystemicUse.J05A_DirectActingAntivirals.J05AF07_TenofovirDisoproxil;
 
 model TenofovirDisoproxil
-  extends Pharmacolibrary.Drugs.ATC.J.J05AF07
-  // parameters inherited from base class, duplicate, uncomment and change if necesarry
-  /*
-  
-    weight         = 70,
-    F              = 0.25,
-    Cl             = 3.5e-06,
-    adminDuration  = 600,
-    adminMass      = 300 / 1000000,
-    adminCount     = 1,
-    Vd             = 0.09670000000000001,
-    Cmin           = 0.001,
-    Cmax           = 0.01,
-    Ctox_peak      = 0.02,
-    Ctox_trough    = 0.01,
-    ka             = 0.016666666666666666,
-    Tlag           = 10.001999999999999  
-  */
-  ;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_1C_enteral(
+    weight = 70,
+    F = 0.25,
+    Cl = 3.5e-06,
+    adminDuration = 600,
+    adminMass = 300 / 1000000,
+    adminCount = 1,
+    Vd = 0.09670000000000001,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01,
+    ka = 0.016666666666666666,
+    Tlag = 10.001999999999999);
 
   annotation (Documentation(
     info       = "<html><body><table><tr><td>name:</td><td>TenofovirDisoproxil</td></tr><tr><td>ATC code:</td><td>J05AF07</td></tr><td>route:</td><td>oral</td></tr>
@@ -29,7 +24,7 @@ model TenofovirDisoproxil
     <tr><td>clearance:</td><td>12.6</td><td>L/h</td></tr>
     <tr><td colspan='3'>other parameters in model implementation</td></tr>
     </table><p>Tenofovir disoproxil is a nucleotide reverse transcriptase inhibitor (NRTI) used as an antiretroviral medication for the treatment and prevention of HIV-1 infection and chronic hepatitis B. It is approved and widely used today as part of combination therapy regimens.</p><h4>Pharmacokinetics</h4><p>Pharmacokinetic parameters in healthy adults following single oral dose of tenofovir disoproxil 300 mg.</p><h4>References</h4><ol><li><p>Eke, AC, et al., &amp; Capparelli, EV (2021). Population Pharmacokinetics of Tenofovir in Pregnant and Postpartum Women Using Tenofovir Disoproxil Fumarate. <i>Antimicrobial agents and chemotherapy</i> 65(3) –. DOI:<a href=\"https://doi.org/10.1128/AAC.02168-20\">10.1128/AAC.02168-20</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/33318014/\">https://pubmed.ncbi.nlm.nih.gov/33318014</a></p></li><li><p>Burns, RN, et al., &amp; Chaturvedula, A (2015). Population pharmacokinetics of tenofovir and tenofovir-diphosphate in healthy women. <i>Journal of clinical pharmacology</i> 55(6) 629–638. DOI:<a href=\"https://doi.org/10.1002/jcph.461\">10.1002/jcph.461</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/25581815/\">https://pubmed.ncbi.nlm.nih.gov/25581815</a></p></li><li><p>Kearney, BP, et al., &amp; Shah, J (2004). Tenofovir disoproxil fumarate: clinical pharmacology and pharmacokinetics. <i>Clinical pharmacokinetics</i> 43(9) 595–612. DOI:<a href=\"https://doi.org/10.2165/00003088-200443090-00003\">10.2165/00003088-200443090-00003</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/15217303/\">https://pubmed.ncbi.nlm.nih.gov/15217303</a></p></li></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.J.J05AF07 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
     
