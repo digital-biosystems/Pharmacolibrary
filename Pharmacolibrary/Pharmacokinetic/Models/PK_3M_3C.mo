@@ -26,17 +26,18 @@ model PK_3M_3C "Pro-drug with up to two metabolites: parent (hepatic + central +
   // pass. Set the one not used to 0 (adminMass defaults to 100 mg: an IV-only model sets
   // adminMass = 0). The schedule bindings live in the CONSTRAINING clause so a redeclare keeps
   // them (see PK_1C); ka and Tlag exist only in the enteral source.
-  replaceable Sources.PeriodicDose_Enteral periodicDose(ka = ka, Tlag = Tlag) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
+  replaceable Sources.PeriodicDose_Enteral periodicDose(ka = ka, Tlag = Tlag) annotation(
+    Placement(transformation(origin = {-82, 50}, extent = {{-10, -10}, {10, 10}})))constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
     Placement(transformation(origin = {-68, 58}, extent = {{-10, -10}, {10, 10}})));
   replaceable Pharmacolibrary.Sources.PeriodicDose infusionDose annotation(
-    Placement(transformation(origin = {60, -70}, extent = {{-10, -10}, {10, 10}}))) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(F = 1, adminDuration = infusionDuration, adminMass = infusionMass, adminPeriod = adminPeriod, doseCount = adminCount, firstAdminTime = adminTime) "IV / parenteral dose into the parent central compartment (no first pass)";
+    Placement(transformation(origin = {-34, 50}, extent = {{-10, -10}, {10, 10}}))) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(F = 1, adminDuration = infusionDuration, adminMass = infusionMass, adminPeriod = adminPeriod, doseCount = adminCount, firstAdminTime = adminTime) "IV / parenteral dose into the parent central compartment (no first pass)";
   // ---- elimination and transfers (TransferFirstOrderNonSym: CLa moves a->b, CLb moves b->a) --
   Pharmacokinetic.ClearanceDrivenElimination CL_1(CL = CL1) annotation(
-    Placement(transformation(origin = {-48, 10}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-50, 4}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.ClearanceDrivenElimination CL_m1(CL = CLm1) annotation(
-    Placement(transformation(origin = {20, -12}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {22, -16}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.ClearanceDrivenElimination CL_m2(CL = CLm2) annotation(
-    Placement(transformation(origin = {28, 88}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(transformation(origin = {22, 84}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.TransferFirstOrderNonSym Qc(CLa = q21, CLb = q12) annotation(
     Placement(transformation(origin = {4, 20}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.TransferFirstOrderNonSym Qp(CLa = q32, CLb = q23) annotation(
@@ -105,10 +106,8 @@ equation
   C_central = central.cport.c;
   C_M1 = central_M1.cport.c;
   C_M2 = central_M2.cport.c;
-  connect(infusionDose.cport, central.cport) annotation(
-    Line(points = {{60, -80}, {60, -90}, {92, -90}, {92, 0}, {36, 0}}, color = {152, 112, 187}));
   connect(periodicDose.cport, hepatic.cport) annotation(
-    Line(points = {{-68, 48}, {-68, 42}, {-20, 42}, {-20, 20}}, color = {152, 112, 187}));
+    Line(points = {{-82, 40}, {-82, 20}, {-20, 20}}, color = {152, 112, 187}));
   connect(hepatic.cport, Qc.cport_b) annotation(
     Line(points = {{-20, 20}, {-6, 20}}, color = {152, 112, 187}));
   connect(Qc.cport_b, Qhm1.cport_b) annotation(
@@ -120,9 +119,9 @@ equation
   connect(Qhm2.cport_a, central_M2.cport) annotation(
     Line(points = {{16, 74}, {16, 73}, {38, 73}, {38, 74}}, color = {152, 112, 187}));
   connect(CL_m1.cport, central_M1.cport) annotation(
-    Line(points = {{30, -12}, {30, -28}}, color = {152, 112, 187}));
+    Line(points = {{22, -6}, {21.5, -6}, {21.5, -4}, {31, -4}, {31, -28}, {30, -28}}, color = {152, 112, 187}));
   connect(CL_m2.cport, central_M2.cport) annotation(
-    Line(points = {{38, 88}, {38, 74}}, color = {152, 112, 187}));
+    Line(points = {{22, 94}, {22, 95}, {38, 95}, {38, 74}}, color = {152, 112, 187}));
   connect(central_M2.cport, Qm2.cport_b) annotation(
     Line(points = {{38, 74}, {52, 74}}, color = {152, 112, 187}));
   connect(Qm2.cport_a, peripheral_M2.cport) annotation(
@@ -134,17 +133,19 @@ equation
   connect(Qc.cport_a, central.cport) annotation(
     Line(points = {{14, 20}, {36, 20}}, color = {152, 112, 187}));
   connect(CL_1.cport, hepatic.cport) annotation(
-    Line(points = {{-48, 20}, {-20, 20}}, color = {152, 112, 187}));
+    Line(points = {{-50, 14}, {-33, 14}, {-33, 20}, {-20, 20}}, color = {152, 112, 187}));
   connect(central_M1.cport, Qm1.cport_b) annotation(
     Line(points = {{30, -28}, {44, -28}}, color = {152, 112, 187}));
   connect(Qm1.cport_a, peripheral_M1.cport) annotation(
     Line(points = {{64, -28}, {76, -28}}, color = {152, 112, 187}));
   connect(central_M1.cport, centralM1CPort) annotation(
     Line(points = {{30, -28}, {14, -28}, {14, -40}, {-100, -40}, {-100, 0}}, color = {152, 112, 187}));
+  connect(infusionDose.cport, hepatic.cport) annotation(
+    Line(points = {{-34, 40}, {-34, 22}, {-20, 22}, {-20, 20}}, color = {152, 112, 187}));
   annotation(
     Icon(graphics = {Text(origin = {0, -80}, extent = {{-180, 20}, {180, -20}}, textString = "%name", textStyle = {TextStyle.Bold})}),
     experiment(StartTime = 0, StopTime = 86400, Tolerance = 1e-06, Interval = 60),
-    Diagram(graphics = {Text(origin = {-44, 2}, extent = {{-12, 4}, {12, -4}}, textString = "pro-drug"), Text(origin = {-11, -45}, extent = {{-27, 9}, {27, -9}}, textString = "metabolite 1"), Text(origin = {1, 59}, extent = {{-25, 7}, {25, -7}}, textString = "metabolite 2")}),
+    Diagram(graphics = {Text(origin = {56, -4}, extent = {{-20, 6}, {20, -6}}, textString = "pro-drug"), Text(origin = {57, -55}, extent = {{-27, 9}, {27, -9}}, textString = "metabolite 1"), Text(origin = {59, 49}, extent = {{-25, 7}, {25, -7}}, textString = "metabolite 2")}),
     Documentation(info = "<html><body>
 <h4>PK_3M_3C</h4>
 <p>Generic template for a <b>pro-drug with up to two metabolites</b> (e.g. clopidogrel: active thiol metabolite H4 and inactive carboxylic acid; Jung 2024). A concrete drug model <code>extends</code> it and sets parameters; covariate and genotype effects are ordinary parameter expressions in the extending model (e.g. <code>q1_m11 = fm1*fm2*CLC</code>).</p>
