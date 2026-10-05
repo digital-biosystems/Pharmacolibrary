@@ -19,18 +19,19 @@ model PK_3M_3C "Pro-drug with up to two metabolites: parent (hepatic + central +
     Placement(transformation(origin = {38, 64}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.NoPerfusedTissueCompartment peripheral_M2(V = Vd2m2, molarWeight = MW_m2) annotation(
     Placement(transformation(origin = {78, 64}, extent = {{-10, -10}, {10, 10}})));
-  // ---- dosing: oral into the hepatic compartment (first pass), IV into central ---
+  // ---- dosing: oral and IV both into the hepatic compartment -----------------------
   // periodicDose (oral, adminMass) enters the HEPATIC compartment, so an oral dose passes the
   // liver — and forms metabolites — before it reaches the circulation. infusionDose (IV /
-  // parenteral, infusionMass) enters the parent CENTRAL compartment: an IV dose bypasses first
-  // pass. Set the one not used to 0 (adminMass defaults to 100 mg: an IV-only model sets
+  // parenteral, infusionMass) enters the HEPATIC compartment as well, with bioavailability 1 and
+  // no absorption step, so it too passes hepatic metabolism before reaching the central
+  // compartment. Set the one not used to 0 (adminMass defaults to 100 mg: an IV-only model sets
   // adminMass = 0). The schedule bindings live in the CONSTRAINING clause so a redeclare keeps
   // them (see PK_1C); ka and Tlag exist only in the enteral source.
   replaceable Sources.PeriodicDose_Enteral periodicDose(ka = ka, Tlag = Tlag) annotation(
     Placement(transformation(origin = {-82, 50}, extent = {{-10, -10}, {10, 10}})))constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
     Placement(transformation(origin = {-68, 58}, extent = {{-10, -10}, {10, 10}})));
   replaceable Pharmacolibrary.Sources.PeriodicDose infusionDose annotation(
-    Placement(transformation(origin = {-34, 50}, extent = {{-10, -10}, {10, 10}}))) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(F = 1, adminDuration = infusionDuration, adminMass = infusionMass, adminPeriod = adminPeriod, doseCount = adminCount, firstAdminTime = adminTime) "IV / parenteral dose into the parent central compartment (no first pass)";
+    Placement(transformation(origin = {-34, 50}, extent = {{-10, -10}, {10, 10}}))) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(F = 1, adminDuration = infusionDuration, adminMass = infusionMass, adminPeriod = adminPeriod, doseCount = adminCount, firstAdminTime = adminTime) "IV / parenteral dose into the hepatic compartment (bioavailability 1, no absorption step)";
   // ---- elimination and transfers (TransferFirstOrderNonSym: CLa moves a->b, CLb moves b->a) --
   Pharmacokinetic.ClearanceDrivenElimination CL_1(CL = CL1) annotation(
     Placement(transformation(origin = {-50, 4}, extent = {{-10, -10}, {10, 10}})));
@@ -69,7 +70,7 @@ model PK_3M_3C "Pro-drug with up to two metabolites: parent (hepatic + central +
   final parameter Real massRatio_m1 = if MW > 0 and MW_m1 > 0 then MW_m1 / MW else 1;
   final parameter Real massRatio_m2 = if MW > 0 and MW_m2 > 0 then MW_m2 / MW else 1;
   parameter Pharmacolibrary.Types.Mass adminMass(displayUnit = "mg") = 1e-4 "oral dose mass, into the hepatic compartment (0 = no oral dose; an IV-only model sets 0)";
-  parameter Pharmacolibrary.Types.Mass infusionMass(displayUnit = "mg") = 0 "IV / parenteral dose mass into the parent central compartment (0 = no IV dose); bioavailability 1";
+  parameter Pharmacolibrary.Types.Mass infusionMass(displayUnit = "mg") = 0 "IV / parenteral dose mass into the hepatic compartment (0 = no IV dose); bioavailability 1";
   parameter Integer adminCount = 1 "number of doses (-1 = unlimited)";
   parameter Modelica.Units.SI.Time adminPeriod(displayUnit = "h") = 8*3600 "period of administration";
   parameter Modelica.Units.SI.Time adminDuration = 1 "oral administration duration (a 1 s bolus into the gut, as in PeriodicDose_Enteral)";
@@ -157,7 +158,7 @@ equation
 <li>a 1-compartment metabolite: leave its peripheral clearances at 0 (<code>qm11_m12 = qm12_m11 = 0</code> or <code>qm21_m22 = qm22_m21 = 0</code>);</li>
 <li>a parent without a peripheral compartment: <code>q23 = q32 = 0</code>.</li>
 </ul>
-<p><b>Dosing</b> through two sources sharing one schedule (<code>adminTime</code>, <code>adminPeriod</code>, <code>adminCount</code>): <b>oral</b> <code>adminMass</code> enters the <b>hepatic</b> compartment (<code>ka</code>, <code>Tlag</code>, <code>F</code>, <code>adminDuration</code>), so it passes the liver &mdash; and forms metabolites &mdash; before reaching the circulation; <b>IV / parenteral</b> <code>infusionMass</code> enters the parent <b>central</b> compartment (bioavailability 1, infused over <code>infusionDuration</code>), bypassing first pass. Use one and set the other to 0: <code>adminMass</code> defaults to 100 mg, so an IV-only model sets <code>adminMass = 0</code>; <code>infusionMass</code> defaults to 0. Both may be non-zero for a regimen that combines the routes.</p>
+<p><b>Dosing</b> through two sources sharing one schedule (<code>adminTime</code>, <code>adminPeriod</code>, <code>adminCount</code>): <b>oral</b> <code>adminMass</code> enters the <b>hepatic</b> compartment (<code>ka</code>, <code>Tlag</code>, <code>F</code>, <code>adminDuration</code>), so it passes the liver &mdash; and forms metabolites &mdash; before reaching the circulation; <b>IV / parenteral</b> <code>infusionMass</code> enters the <b>hepatic</b> compartment as well (bioavailability 1, infused over <code>infusionDuration</code>, no absorption step), so it also passes hepatic metabolism before reaching the central compartment. Use one and set the other to 0: <code>adminMass</code> defaults to 100 mg, so an IV-only model sets <code>adminMass = 0</code>; <code>infusionMass</code> defaults to 0. Both may be non-zero for a regimen that combines the routes.</p>
 <p><b>Molar masses.</b> Formation is <b>molar</b>: 1 mol of parent forms 1 mol of metabolite, so with the molar masses set (<code>MW</code>, <code>MW_m1</code>, <code>MW_m2</code>, kg/mol) the metabolite gains <code>MW_m/MW</code> kg per kg of parent converted (<code>TransferMetabolicConversion</code>). Every compartment then also reports its molar concentration <code>C_molar</code> (mol/m<sup>3</sup>). A molar mass left at 0 means &quot;not supplied&quot;: formation falls back to mass-conserving (ratio 1) and <code>C_molar</code> is 0.</p><p><b>Assumptions and limits.</b> Metabolite formation happens only in the hepatic compartment; a model forming metabolites from the central compartment, or giving the parent IV into the central compartment, does not fit this template unchanged.</p>
 <p><b>Outputs:</b> <code>C_central</code> (parent), <code>C_M1</code>, <code>C_M2</code>, and the connector <code>centralM1CPort</code> (metabolite 1 central compartment) for driving a PD model.</p>
 <h4>Simulating as a co-simulation FMU</h4><p>The dose is a rectangular pulse <code>adminMass/adminDuration</code> wide <code>adminDuration</code>. An OpenModelica co-simulation FMU (CVODE, no root finding) sees that pulse only at communication points, so the <b>communication step</b> must resolve it: use at most <code>adminDuration/50</code> and keep dose times on the step grid. Measured on PK_3M_3C (single 75 mg dose): with a 60 s step a 1 s pulse was either missed (0&times; the dose) or held for the whole step (60&times;); with <code>adminDuration/50</code> the mass balance closes to 1.0000. A pulse that starts at <code>t = 0</code> or between grid points is held one step too long (+2% at <code>adminDuration/50</code>), which is why the templates start at <code>adminTime = 60</code>. In FMPy the communication step is <code>output_interval</code>, not <code>step_size</code>.</p></body></html>"));
