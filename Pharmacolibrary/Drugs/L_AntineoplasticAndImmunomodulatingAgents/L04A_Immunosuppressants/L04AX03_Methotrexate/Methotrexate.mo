@@ -1,32 +1,5 @@
 within Pharmacolibrary.Drugs.L_AntineoplasticAndImmunomodulatingAgents.L04A_Immunosuppressants.L04AX03_Methotrexate;
-
-model Methotrexate
-  extends Pharmacolibrary.Pharmacokinetic.Models.PK_2C(
-    weight = 70,
-    F = 1,
-    Cl = 1.7194444444444444e-06,
-    adminDuration = 600,
-    adminMass = 1000 / 1000000,
-    adminCount = 1,
-    Vd = 0.02113,
-    Cmin = 0.001,
-    Cmax = 0.01,
-    Ctox_peak = 0.02,
-    Ctox_trough = 0.01,
-    Vdp = 0.00827,
-    k12 = 1.891666666666667e-07,
-    k21 = 1.891666666666667e-07);
-
-  annotation (Documentation(
-    info       = "<html><body><table><tr><td>name:</td><td>Methotrexate</td></tr><tr><td>ATC code:</td><td>L04AX03</td></tr><td>route:</td><td>intravenous</td></tr>
-    <tr><td>compartments:</td><td>2</td></tr>
-    <tr><td>dosage:</td><td>1000</td><td>mg</td></tr>
-    <tr><td>volume of distribution:</td><td>21.13</td><td>L</td></tr>
-    <tr><td>clearance:</td><td>6.19</td><td>L/h</td></tr>
-    <tr><td colspan='3'>other parameters in model implementation</td></tr>
-    </table><p>Methotrexate is an antimetabolite and antifolate drug, widely used in the treatment of various cancers (e.g., leukemia, lymphoma, breast cancer) and autoimmune diseases such as rheumatoid arthritis and psoriasis. It inhibits dihydrofolate reductase, blocking DNA synthesis and cell replication. Methotrexate is approved and used in clinical practice today for both oncological and non-oncological indications.</p><h4>Pharmacokinetics</h4><p>Pharmacokinetic parameters reported in adults, primarily cancer patients, after intravenous administration. Data based on population PK studies. Parameters represent typical values in adult patients with normal renal function.</p><h4>References</h4><ol><li><p>Nader, A, et al., &amp; Wilby, KJ (2017). Population Pharmacokinetics of Intravenous Methotrexate in Patients with Hematological Malignancies: Utilization of Routine Clinical Monitoring Parameters. <i>European journal of drug metabolism and pharmacokinetics</i> 42(2) 221–228. DOI:<a href=\"https://doi.org/10.1007/s13318-016-0338-1\">10.1007/s13318-016-0338-1</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/27059845/\">https://pubmed.ncbi.nlm.nih.gov/27059845</a></p></li><li><p>Medellin-Garibay, SE, et al., &amp; Romano-Moreno, S (2020). Population pharmacokinetics of methotrexate in Mexican pediatric patients with acute lymphoblastic leukemia. <i>Cancer chemotherapy and pharmacology</i> 85(1) 21–31. DOI:<a href=\"https://doi.org/10.1007/s00280-019-03977-1\">10.1007/s00280-019-03977-1</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/31673826/\">https://pubmed.ncbi.nlm.nih.gov/31673826</a></p></li><li><p>Shi, ZY, et al., &amp; Yan, D (2020). Population pharmacokinetics of high-dose methotrexate in Chinese pediatric patients with medulloblastoma. <i>Biopharmaceutics &amp; drug disposition</i> 41(3) 101–110. DOI:<a href=\"https://doi.org/10.1002/bdd.2221\">10.1002/bdd.2221</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/32017134/\">https://pubmed.ncbi.nlm.nih.gov/32017134</a></p></li></ol></body></html>",
-    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.L.L04AX03 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
-    experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
-  ));
-    
+model Methotrexate "Methotrexate — default model: Methotrexate_Wei2025_reference"
+  extends Methotrexate_Wei2025_reference;
+  annotation (Documentation(info = "<html><body><p>The default model of methotrexate: <a href=\"modelica://Pharmacolibrary.Drugs.L_AntineoplasticAndImmunomodulatingAgents.L04A_Immunosuppressants.L04AX03_Methotrexate.Methotrexate_Wei2025_reference\">Methotrexate_Wei2025_reference</a>, chosen among the models extracted from papers (reviewer verdict, ground-truth agreement, completeness). All models of methotrexate in this package:</p><ul><li><code>Methotrexate_Blackman2026_reference</code></li><li><code>Methotrexate_Wei2025_reference</code></li><li><code>Methotrexate_Yu2025_reference</code></li><li><code>Methotrexate_Bremnes1989_reference</code></li><li><code>Methotrexate_Kamel1988_reference</code></li></ul><h4>About methotrexate</h4><p>Methotrexate is a folic acid antagonist used as an anticancer drug for various cancers such as leukemia and lymphoma, and as an immunosuppressive disease-modifying antirheumatic drug for conditions like rheumatoid arthritis, psoriasis, and other inflammatory diseases. It is widely used and is included on the WHO essential medicines list; in the European Union several products are authorised for psoriasis and various forms of arthritis.</p><p><small>Summary written by glm-5.3-flash from <a href=\"https://www.wikidata.org/wiki/Q422232\">Wikidata Q422232</a> and the WHO ATC classification and the EMA medicines list; not checked by a person.</small></p><p>Identity, molar mass and metabolites: <a href=\"modelica://Pharmacolibrary.Drugs.Substances.Methotrexate\">Methotrexate</a>.</p></body></html>", revisions = "<html><body><ul><li>10/2026 generated by pharmacolibrary-dev export.pharmacolibrary_models from default: parameters extracted from the paper by the pharmacolibrary-dev pipeline, model built by its engineer, reviewed: default</li></ul></body></html>"), experiment(StartTime = 0, StopTime = 1036800, Tolerance = 1e-9, Interval = 1));
 end Methotrexate;
