@@ -9,6 +9,7 @@ model CalciumChloride_Ansari2022_reference
     Vd = Vd_ref,
     adminDuration = 600,
     adminCount = 1,
+    MM = Pharmacolibrary.Drugs.Substances.CalciumChloride.M,
     adminMass = 1e-05
   );
 
