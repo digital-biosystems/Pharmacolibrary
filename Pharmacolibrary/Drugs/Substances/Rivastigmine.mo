@@ -1,0 +1,14 @@
+within Pharmacolibrary.Drugs.Substances;
+package Rivastigmine "rivastigmine"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "rivastigmine",
+    atcCodes = {"N06DA03"},
+    drugbankId = "DB00989",
+    pubchemCid = "77991",
+    chebiId = "8874",
+    wikidataId = "Q411887",
+    formula = "C14H22N2O2",
+    M = 0.250342,
+    logP = 2.3);
+  annotation (Documentation(info = "<html><body><p>Rivastigmine is an anticholinesterase medicine used to treat dementia, including Alzheimer's disease and Parkinson's disease dementia. It is approved and widely used, with several products authorised in the European Union for these conditions.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q411887&quot;>Wikidata Q411887</a> and the WHO ATC classification and the EMA medicines list; not checked by a person.</small></p><table><tr><td>name:</td><td>rivastigmine</td></tr><tr><td>ATC codes:</td><td>N06DA03</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB00989&quot;>DB00989</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/77991&quot;>77991</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:8874&quot;>8874</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q411887&quot;>Q411887</a></td></tr><tr><td>formula:</td><td>C14H22N2O2</td></tr><tr><td>molar mass:</td><td>250.342 g/mol (PubChem)</td></tr></table></body></html>"));
+end Rivastigmine;

@@ -1,0 +1,14 @@
+within Pharmacolibrary.Drugs.Substances;
+package TenofovirDisoproxil "tenofovir disoproxil"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "tenofovir disoproxil",
+    atcCodes = {"J05AF07"},
+    drugbankId = "DB00300",
+    pubchemCid = "5481350",
+    chebiId = "63717",
+    wikidataId = "Q27132753",
+    formula = "C19H30N5O10P",
+    M = 0.519448,
+    logP = 1.6);
+  annotation (Documentation(info = "<html><body><p>Tenofovir disoproxil is an antiviral used to treat HIV infection and chronic hepatitis B. It is widely used and is authorised in the European Union, available both alone and in combination products for HIV.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q27132753&quot;>Wikidata Q27132753</a> and the WHO ATC classification and the EMA medicines list; not checked by a person.</small></p><table><tr><td>name:</td><td>tenofovir disoproxil</td></tr><tr><td>ATC codes:</td><td>J05AF07</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB00300&quot;>DB00300</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/5481350&quot;>5481350</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:63717&quot;>63717</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q27132753&quot;>Q27132753</a></td></tr><tr><td>formula:</td><td>C19H30N5O10P</td></tr><tr><td>molar mass:</td><td>519.448 g/mol (PubChem)</td></tr></table></body></html>"));
+end TenofovirDisoproxil;

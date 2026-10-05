@@ -1,0 +1,14 @@
+within Pharmacolibrary.Drugs.Substances;
+package Carvedilol "carvedilol"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "carvedilol",
+    atcCodes = {"C07AG02"},
+    drugbankId = "DB01136",
+    pubchemCid = "2585",
+    chebiId = "3441",
+    wikidataId = "Q412534",
+    formula = "C24H26N2O4",
+    M = 0.406482,
+    logP = 4.2);
+  annotation (Documentation(info = "<html><body><p>Carvedilol is a beta blocker with additional alpha-blocking activity used to treat high blood pressure, angina, heart failure, and other heart conditions such as after a myocardial infarction. It is an approved medicine and is widely used in cardiovascular care.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q412534&quot;>Wikidata Q412534</a> and the WHO ATC classification; not checked by a person.</small></p><table><tr><td>name:</td><td>carvedilol</td></tr><tr><td>ATC codes:</td><td>C07AG02</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB01136&quot;>DB01136</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/2585&quot;>2585</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:3441&quot;>3441</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q412534&quot;>Q412534</a></td></tr><tr><td>formula:</td><td>C24H26N2O4</td></tr><tr><td>molar mass:</td><td>406.482 g/mol (PubChem)</td></tr></table></body></html>"));
+end Carvedilol;

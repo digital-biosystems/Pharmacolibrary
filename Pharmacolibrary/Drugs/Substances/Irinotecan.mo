@@ -1,0 +1,14 @@
+within Pharmacolibrary.Drugs.Substances;
+package Irinotecan "irinotecan"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "irinotecan",
+    atcCodes = {"L01CE02", "L01XX19"},
+    drugbankId = "DB00762",
+    pubchemCid = "60838",
+    chebiId = "80630",
+    wikidataId = "Q412197",
+    formula = "C33H38N4O6",
+    M = 0.586689,
+    logP = 3);
+  annotation (Documentation(info = "<html><body><p>Irinotecan is a topoisomerase I inhibitor used as an anticancer medicine, mainly for colorectal and pancreatic cancers and also for several other cancers such as lung, breast, stomach and brain tumours. It remains in use, is authorised in the European Union, and is included on the WHO list of essential medicines.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q412197&quot;>Wikidata Q412197</a> and the WHO ATC classification and the EMA medicines list; not checked by a person.</small></p><table><tr><td>name:</td><td>irinotecan</td></tr><tr><td>ATC codes:</td><td>L01CE02, L01XX19</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB00762&quot;>DB00762</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/60838&quot;>60838</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:80630&quot;>80630</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q412197&quot;>Q412197</a></td></tr><tr><td>formula:</td><td>C33H38N4O6</td></tr><tr><td>molar mass:</td><td>586.689 g/mol (PubChem)</td></tr></table></body></html>"));
+end Irinotecan;

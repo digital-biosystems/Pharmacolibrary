@@ -1,0 +1,14 @@
+within Pharmacolibrary.Drugs.Substances;
+package Modafinil "modafinil"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "modafinil",
+    atcCodes = {"N06BA07"},
+    drugbankId = "DB00745",
+    pubchemCid = "4236",
+    chebiId = "77585",
+    wikidataId = "Q410441",
+    formula = "C15H15NO2S",
+    M = 0.27335,
+    logP = 1.7);
+  annotation (Documentation(info = "<html><body><p>Modafinil is a wakefulness-promoting stimulant used for sleep disorders such as narcolepsy and hypersomnia, and studied for fatigue, ADHD and multiple sclerosis-related tiredness. It is an approved medicine, widely used for narcolepsy, though it carries a boxed warning and is also investigated for other conditions.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q410441&quot;>Wikidata Q410441</a> and the WHO ATC classification; not checked by a person.</small></p><table><tr><td>name:</td><td>modafinil</td></tr><tr><td>ATC codes:</td><td>N06BA07</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB00745&quot;>DB00745</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/4236&quot;>4236</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:77585&quot;>77585</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q410441&quot;>Q410441</a></td></tr><tr><td>formula:</td><td>C15H15NO2S</td></tr><tr><td>molar mass:</td><td>273.35 g/mol (PubChem)</td></tr></table></body></html>"));
+end Modafinil;

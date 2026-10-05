@@ -1,0 +1,14 @@
+within Pharmacolibrary.Drugs.Substances;
+package Artemether "artemether"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "artemether",
+    atcCodes = {"P01BE02"},
+    drugbankId = "DB06697",
+    pubchemCid = "68911",
+    chebiId = "195280",
+    wikidataId = "Q416199",
+    formula = "C16H26O5",
+    M = 0.298379,
+    logP = 3.1);
+  annotation (Documentation(info = "<html><body><p>Artemether is an antimalarial medicine of the artemisinin group, used to treat malaria, and is also reported to have activity against other protozoa and schistosomiasis. It is an approved medicine, appears on the WHO essential medicines list, and is used both alone and in combination antimalarial products worldwide.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q416199&quot;>Wikidata Q416199</a> and the WHO ATC classification; not checked by a person.</small></p><table><tr><td>name:</td><td>artemether</td></tr><tr><td>ATC codes:</td><td>P01BE02</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB06697&quot;>DB06697</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/68911&quot;>68911</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:195280&quot;>195280</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q416199&quot;>Q416199</a></td></tr><tr><td>formula:</td><td>C16H26O5</td></tr><tr><td>molar mass:</td><td>298.379 g/mol (PubChem)</td></tr></table></body></html>"));
+end Artemether;

@@ -1,0 +1,26 @@
+within Pharmacolibrary.Drugs.Substances;
+package Tramadol "tramadol"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "tramadol",
+    atcCodes = {"N02AX02"},
+    drugbankId = "DB00193",
+    pubchemCid = "33741",
+    chebiId = "75722",
+    wikidataId = "Q407592",
+    formula = "C16H25NO2",
+    M = 0.263381,
+    logP = 2.6);
+  package NNDidesmethylTramadol "metabolite: N-,N-didesmethyl-tramadol"
+    extends Pharmacolibrary.Interfaces.PartialMetabolite(name = "N-,N-didesmethyl-tramadol", pubchemCid = "10105488", formula = "C14H21NO2", M = 0.235327);
+  end NNDidesmethylTramadol;
+  package NODidesmethylTramadol "metabolite: N-,O-didesmethyl-tramadol"
+    extends Pharmacolibrary.Interfaces.PartialMetabolite(name = "N-,O-didesmethyl-tramadol", pubchemCid = "9816106", formula = "C14H21NO2", M = 0.235327);
+  end NODidesmethylTramadol;
+  package ODesmethylTramadol "metabolite: O-desmethyl tramadol"
+    extends Pharmacolibrary.Interfaces.PartialMetabolite(name = "O-desmethyl tramadol");
+  end ODesmethylTramadol;
+  package ODesmethyltramadolM1 "metabolite: O-desmethyltramadol (M1)"
+    extends Pharmacolibrary.Interfaces.PartialMetabolite(name = "O-desmethyltramadol (M1)", pubchemCid = "9838803", formula = "C15H23NO2", M = 0.249354);
+  end ODesmethyltramadolM1;
+  annotation (Documentation(info = "<html><body><p>Tramadol is an opioid painkiller used to treat pain. It is an approved medicine and is widely used, available both alone and in combination with non-opioid analgesics.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q407592&quot;>Wikidata Q407592</a> and the WHO ATC classification; not checked by a person.</small></p><table><tr><td>name:</td><td>tramadol</td></tr><tr><td>ATC codes:</td><td>N02AX02</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB00193&quot;>DB00193</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/33741&quot;>33741</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:75722&quot;>75722</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q407592&quot;>Q407592</a></td></tr><tr><td>formula:</td><td>C16H25NO2</td></tr><tr><td>molar mass:</td><td>263.381 g/mol (PubChem)</td></tr></table><h4>Metabolites</h4><table><tr><td><code>NNDidesmethylTramadol</code></td><td>N-,N-didesmethyl-tramadol</td><td>235.327 g/mol (pubchem)</td></tr><tr><td><code>NODidesmethylTramadol</code></td><td>N-,O-didesmethyl-tramadol</td><td>235.327 g/mol (pubchem)</td></tr><tr><td><code>ODesmethylTramadol</code></td><td>O-desmethyl tramadol</td><td>molar mass unknown</td></tr><tr><td><code>ODesmethyltramadolM1</code></td><td>O-desmethyltramadol (M1) (N-desmethyltramadol (M2))</td><td>249.354 g/mol (pubchem)</td></tr></table></body></html>"));
+end Tramadol;

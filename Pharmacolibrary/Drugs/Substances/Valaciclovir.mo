@@ -1,0 +1,14 @@
+within Pharmacolibrary.Drugs.Substances;
+package Valaciclovir "valaciclovir"
+  extends Pharmacolibrary.Interfaces.PartialSubstance(
+    name = "valaciclovir",
+    atcCodes = {"J05AB11"},
+    drugbankId = "DB00577",
+    pubchemCid = "60773",
+    chebiId = "35854",
+    wikidataId = "Q418594",
+    formula = "C13H20N6O4",
+    M = 0.324336,
+    logP = -0.9);
+  annotation (Documentation(info = "<html><body><p>Valaciclovir is an antiviral medicine used to treat infections caused by herpes viruses, including shingles, eye shingles, cold sores and genital herpes. It is an approved antiviral for systemic use and is widely used in human medicine.</p><p><small>Summary written by glm-5.3-flash from <a href=&quot;https://www.wikidata.org/wiki/Q418594&quot;>Wikidata Q418594</a> and the WHO ATC classification; not checked by a person.</small></p><table><tr><td>name:</td><td>valaciclovir</td></tr><tr><td>ATC codes:</td><td>J05AB11</td></tr><tr><td>DrugBank:</td><td><a href=&quot;https://go.drugbank.com/drugs/DB00577&quot;>DB00577</a></td></tr><tr><td>PubChem CID:</td><td><a href=&quot;https://pubchem.ncbi.nlm.nih.gov/compound/60773&quot;>60773</a></td></tr><tr><td>ChEBI:</td><td><a href=&quot;https://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:35854&quot;>35854</a></td></tr><tr><td>Wikidata:</td><td><a href=&quot;https://www.wikidata.org/wiki/Q418594&quot;>Q418594</a></td></tr><tr><td>formula:</td><td>C13H20N6O4</td></tr><tr><td>molar mass:</td><td>324.336 g/mol (Drugs.Common (25.09))</td></tr></table></body></html>"));
+end Valaciclovir;
