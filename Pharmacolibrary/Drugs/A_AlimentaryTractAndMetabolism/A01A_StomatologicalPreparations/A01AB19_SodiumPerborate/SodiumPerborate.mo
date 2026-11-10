@@ -1,23 +1,18 @@
 within Pharmacolibrary.Drugs.A_AlimentaryTractAndMetabolism.A01A_StomatologicalPreparations.A01AB19_SodiumPerborate;
 
 model SodiumPerborate
-  extends Pharmacolibrary.Drugs.ATC.A.A01AB19
-  // parameters inherited from base class, duplicate, uncomment and change if necesarry
-  /*
-  
-    weight         = 70,
-    F              = 1,
-    Cl             = 0,
-    adminDuration  = 600,
-    adminMass      = 100 / 1000000,
-    adminCount     = 1,
-    Vd             = 0.001,
-    Cmin           = 0.001,
-    Cmax           = 0.01,
-    Ctox_peak      = 0.02,
-    Ctox_trough    = 0.01  
-  */
-  ;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_1C(
+    weight = 70,
+    F = 1,
+    Cl = 0,
+    adminDuration = 600,
+    adminMass = 100 / 1000000,
+    adminCount = 1,
+    Vd = 0.001,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01);
 
   annotation (Documentation(
     info       = "<html><body><table><tr><td>name:</td><td>SodiumPerborate</td></tr><tr><td>ATC code:</td><td>A01AB19</td></tr><td>route:</td><td>topical</td></tr>
@@ -27,7 +22,7 @@ model SodiumPerborate
     <tr><td>clearance:</td><td>0</td><td>ml/min</td></tr>
     <tr><td colspan='3'>other parameters in model implementation</td></tr>
     </table><p>Sodium perborate is an inorganic compound formerly used mainly as an antiseptic and bleaching agent. In medicine, it has been used as a mild antiseptic in mouthwashes and toothpaste. Its use as a pharmaceutical agent has declined due to safety concerns and the availability of safer alternatives, and it is not an approved drug in most regions currently.</p><h4>Pharmacokinetics</h4><p>No dedicated pharmacokinetic studies in humans are available for sodium perborate, as it was mainly used in topical oral applications and not intended for systemic absorption. Systemic uptake is considered negligible and pharmacokinetics are not clinically relevant.</p><h4>References</h4><ol></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.A.A01AB19 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
     

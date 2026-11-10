@@ -1,27 +1,21 @@
 within Pharmacolibrary.Drugs.D_Dermatologicals.D01A_AntifungalsForTopicalUse.D01AC02_Miconazole;
 
 model Miconazole_1
-  extends Pharmacolibrary.Drugs.ATC.D.D01AC02_1
-  // parameters inherited from base class, duplicate, uncomment and change if necesarry
-  /*
-  
-    weight         = 70,
-    F              = 1,
-    Cl             = 1.916666666666667e-06,
-    adminDuration  = 600,
-    adminMass      = 400 / 1000000,
-    adminCount     = 1,
-    Vd             = 0.00032,
-    Cmin           = 0.001,
-    Cmax           = 0.01,
-    Ctox_peak      = 0.02,
-    Ctox_trough    = 0.01,            
-    Vdp             = 0.00078,
-    k12             = 3.888888888888889e-06,
-    k21             = 3.888888888888889e-06
-      
-  */
-  ;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_2C(
+    weight = 70,
+    F = 1,
+    Cl = 1.916666666666667e-06,
+    adminDuration = 600,
+    adminMass = 400 / 1000000,
+    adminCount = 1,
+    Vd = 0.00032,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01,
+    Vdp = 0.00078,
+    k12 = 3.888888888888889e-06,
+    k21 = 3.888888888888889e-06);
 
   annotation (Documentation(
     info       = "<html><body><table><tr><td>name:</td><td>Miconazole_1</td></tr><tr><td>ATC code:</td><td>D01AC02_1</td></tr><td>route:</td><td>intravenous</td></tr>
@@ -31,7 +25,7 @@ model Miconazole_1
     <tr><td>clearance:</td><td>6.9</td><td>L/h</td></tr>
     <tr><td colspan='3'>other parameters in model implementation</td></tr>
     </table><p>Miconazole is an imidazole antifungal medication primarily used to treat superficial fungal infections, such as athlete's foot, ringworm, and candidiasis (including oral and vaginal candidiasis). It functions by inhibiting ergosterol synthesis, disrupting fungal cell membrane integrity. Miconazole is approved and widely used in topical, oral, and occasionally intravenous formulations for the treatment of fungal infections in various countries.</p><h4>Pharmacokinetics</h4><p>Pharmacokinetics in hospitalized adults following intravenous infusion.</p><h4>References</h4><ol><li><p>Hayashi, Y, et al., &amp; Yamada, Y (1995). [Study of serial bronchoalveolar lavage in patients with aspergilloma: cell reaction at the affected sites and penetration of miconazole and flucytosine into the lesion]. <i>Kansenshogaku zasshi. The Journal of the Japanese Association for Infectious Diseases</i> 69(5) 517–523. DOI:<a href=\"https://doi.org/10.11150/kansenshogakuzasshi1970.69.517\">10.11150/kansenshogakuzasshi1970.69.517</a>  PUBMED:<a href=\"https://pubmed.ncbi.nlm.nih.gov/7602184/\">https://pubmed.ncbi.nlm.nih.gov/7602184</a></p></li></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.D.D01AC02_1 folded in (Drugs.ATC removed)</li><li>06/2025 Tomas Kulhanek, generated model from data extracted from PUBMED, DrugBank and LLM(GPT4.1)</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
     

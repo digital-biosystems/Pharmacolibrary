@@ -1,11 +1,24 @@
 within Pharmacolibrary.Drugs.A_AlimentaryTractAndMetabolism.A03A_DrugsForFunctionalGastrointestinalDisorders.A03AB16_D_2BenzhydryloxyethylDiethylMeth;
 
 model D_2BenzhydryloxyethylDiethylMeth
-  extends Pharmacolibrary.Drugs.ATC.A.A03AB16;
+  extends Pharmacolibrary.Pharmacokinetic.Models.PK_1C_enteral(
+    weight = 70,
+    F = 0.25,
+    Cl = 5.555555555555556e-06,
+    adminDuration = 600,
+    adminMass = 10 / 1000000,
+    adminCount = 1,
+    Vd = 0.175,
+    Cmin = 0.001,
+    Cmax = 0.01,
+    Ctox_peak = 0.02,
+    Ctox_trough = 0.01,
+    ka = 0.0005,
+    Tlag = 600);
 
   annotation (Documentation(
 info       = "<html><body><table><tr><td>name:</td><td>D_2BenzhydryloxyethylDiethylMethylammoniumIodide</td></tr><tr><td>ATC code:</td><td>A03AB16</td></tr><td>route:</td><td>oral</td></tr><tr><td>n-compartments</td><td>1</td></tr></table><p>(2-benzhydryloxyethyl)diethyl-methylammonium iodide, also known as benzetimide iodide, is an anticholinergic drug used in the past as an antispasmodic agent for gastrointestinal disorders such as irritable bowel syndrome. Its use has largely been discontinued and it is no longer an approved or commonly used therapeutic agent.</p><h4>Pharmacokinetics</h4><p>No published pharmacokinetic parameter data for this compound could be found in the literature; all values below are standard estimates for oral anticholinergics in adults.</p><h4>References</h4><ol></ol></body></html>",
-    revisions  = "<html><body><ul><li>06/2025 initial generated model</li></ul></body></html>",
+    revisions  = "<html><body><ul><li>10/2026 Pharmacolibrary 26.09: model of Drugs.ATC.A.A03AB16 folded in (Drugs.ATC removed)</li><li>06/2025 initial generated model</li></ul></body></html>",
     experiment (StartTime = 0, StopTime = 86400, Tolerance = 1e-9, Interval = 1)
   ));
 end D_2BenzhydryloxyethylDiethylMeth;

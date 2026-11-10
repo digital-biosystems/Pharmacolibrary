@@ -8,7 +8,7 @@ model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral
   Pharmacokinetic.NoPerfusedTissueCompartment peripheral(V = Vd2, molarWeight = MW) annotation(
     Placement(transformation(origin = {60, -10}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.NoPerfusedTissueCompartment peripheral2(V = Vd3, molarWeight = MW) annotation(
-    Placement(transformation(origin = {-60, -10}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-60, -12}, extent = {{-10, -10}, {10, 10}})));
   // ---- metabolite 1 --------------------------------------------------------
   Pharmacokinetic.NoPerfusedTissueCompartment central_M1(V = Vd1m1, molarWeight = MW_m1) annotation(
     Placement(transformation(origin = {0, -70}, extent = {{-10, -10}, {10, 10}})));
@@ -22,20 +22,21 @@ model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral
   Pharmacokinetic.NoPerfusedTissueCompartment peripheral_M2(V = Vd2m2, molarWeight = MW_m2) annotation(
     Placement(transformation(origin = {60, 50}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.NoPerfusedTissueCompartment peripheral2_M2(V = Vd3m2, molarWeight = MW_m2) annotation(
-    Placement(transformation(origin = {-60, 50}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-64, 50}, extent = {{-10, -10}, {10, 10}})));
   // ---- dosing: enters the parent central compartment -------------------------
   // Two sources, both into the parent central compartment: periodicDose (oral, adminMass) and
   // infusionDose (IV / parenteral, infusionMass). Set the one not used to 0 — adminMass defaults
   // to 100 mg, so an IV-only model sets adminMass = 0. The schedule bindings live in the
   // CONSTRAINING clause so a redeclare keeps them (see PK_1C); ka and Tlag exist only in the
   // enteral source and are component modifiers, dropped by a redeclare that has no absorption.
-  replaceable Sources.PeriodicDose_Enteral periodicDose(ka = ka, Tlag = Tlag) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
+  replaceable Sources.PeriodicDose_Enteral periodicDose(ka = ka, Tlag = Tlag) annotation(
+    Placement(transformation(origin = {-42, 24}, extent = {{-10, -10}, {10, 10}})))constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(adminPeriod = adminPeriod, adminMass = adminMass, doseCount = adminCount, adminDuration = adminDuration, F = F, firstAdminTime = adminTime) annotation(
     Placement(transformation(origin = {-26, 26}, extent = {{-10, -10}, {10, 10}})));
   // ---- parent transfers and elimination (TransferFirstOrderNonSym: CLa moves a->b, CLb b->a) --
   Pharmacokinetic.TransferFirstOrderNonSym Q12(CLa = q12, CLb = q21) annotation(
     Placement(transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Pharmacokinetic.TransferFirstOrderNonSym Q13(CLa = q13, CLb = q31) annotation(
-    Placement(transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-30, -2}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.ClearanceDrivenElimination CL_1(CL = CL1) annotation(
     Placement(transformation(origin = {30, -32}, extent = {{-10, -10}, {10, 10}})));
   // ---- metabolite formation (one way, from parent central) -------------------
@@ -47,7 +48,7 @@ model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral
   Pharmacokinetic.TransferFirstOrderNonSym Qm1_12(CLa = qm11_m12, CLb = qm12_m11) annotation(
     Placement(transformation(origin = {30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Pharmacokinetic.TransferFirstOrderNonSym Qm1_13(CLa = qm11_m13, CLb = qm13_m11) annotation(
-    Placement(transformation(origin = {-30, -60}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-30, -62}, extent = {{-10, -10}, {10, 10}})));
   Pharmacokinetic.ClearanceDrivenElimination CL_m1(CL = CLm1) annotation(
     Placement(transformation(origin = {20, -90}, extent = {{-10, -10}, {10, 10}})));
   // ---- metabolite 2 transfers and elimination --------------------------------
@@ -119,7 +120,7 @@ model PK_3M_9C "Parent and up to two metabolites, each with central + peripheral
   parameter Types.Clearance qm23_m21 = 0 "metabolite 2: peripheral 2 -> central";
   parameter Types.Clearance CLm2 = 0 "metabolite 2: elimination from central";
   replaceable Pharmacolibrary.Sources.PeriodicDose infusionDose annotation(
-    Placement(transformation(origin = {38, 24}, extent = {{-10, -10}, {10, 10}}))) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(F = 1, adminDuration = infusionDuration, adminMass = infusionMass, adminPeriod = adminPeriod, doseCount = adminCount, firstAdminTime = adminTime) annotation(
+    Placement(transformation(origin = {34, 24}, extent = {{-10, -10}, {10, 10}}))) constrainedby Pharmacolibrary.Interfaces.PartialPeriodicDoseSource(F = 1, adminDuration = infusionDuration, adminMass = infusionMass, adminPeriod = adminPeriod, doseCount = adminCount, firstAdminTime = adminTime) annotation(
      Placement(transformation(origin = {-18, 22}, extent = {{-10, -10}, {10, 10}})));
 equation
   C_central = central.cport.c;
@@ -127,16 +128,16 @@ equation
   C_M2 = central_M2.cport.c;
   // dosing
   connect(periodicDose.cport, central.cport) annotation(
-    Line(points = {{-26, 16}, {-26, 8}, {0, 8}, {0, 0}}, color = {152, 112, 187}));
+    Line(points = {{-42, 14}, {-42, 8}, {0, 8}, {0, 0}}, color = {152, 112, 187}));
   // parent
   connect(Q12.cport_a, central.cport) annotation(
     Line(points = {{20, 0}, {0, 0}}, color = {152, 112, 187}));
   connect(Q12.cport_b, peripheral.cport) annotation(
     Line(points = {{40, 0}, {60, 0}}, color = {152, 112, 187}));
   connect(Q13.cport_a, central.cport) annotation(
-    Line(points = {{-20, 0}, {0, 0}}, color = {152, 112, 187}));
+    Line(points = {{-20, -2}, {-10, -2}, {-10, 0}, {0, 0}}, color = {152, 112, 187}));
   connect(Q13.cport_b, peripheral2.cport) annotation(
-    Line(points = {{-40, 0}, {-60, 0}}, color = {152, 112, 187}));
+    Line(points = {{-40, -2}, {-60, -2}}, color = {152, 112, 187}));
   connect(CL_1.cport, central.cport) annotation(
     Line(points = {{30, -22}, {10, -22}, {10, 0}, {0, 0}}, color = {152, 112, 187}));
   // formation
@@ -154,9 +155,9 @@ equation
   connect(Qm1_12.cport_b, peripheral_M1.cport) annotation(
     Line(points = {{40, -60}, {60, -60}}, color = {152, 112, 187}));
   connect(Qm1_13.cport_a, central_M1.cport) annotation(
-    Line(points = {{-20, -60}, {0, -60}}, color = {152, 112, 187}));
+    Line(points = {{-20, -62}, {-10, -62}, {-10, -60}, {0, -60}}, color = {152, 112, 187}));
   connect(Qm1_13.cport_b, peripheral2_M1.cport) annotation(
-    Line(points = {{-40, -60}, {-60, -60}}, color = {152, 112, 187}));
+    Line(points = {{-40, -62}, {-50, -62}, {-50, -60}, {-60, -60}}, color = {152, 112, 187}));
   connect(CL_m1.cport, central_M1.cport) annotation(
     Line(points = {{20, -80}, {10, -80}, {10, -60}, {0, -60}}, color = {152, 112, 187}));
   // metabolite 2
@@ -167,18 +168,18 @@ equation
   connect(Qm2_13.cport_a, central_M2.cport) annotation(
     Line(points = {{-20, 60}, {0, 60}}, color = {152, 112, 187}));
   connect(Qm2_13.cport_b, peripheral2_M2.cport) annotation(
-    Line(points = {{-40, 60}, {-60, 60}}, color = {152, 112, 187}));
+    Line(points = {{-40, 60}, {-64, 60}}, color = {152, 112, 187}));
   connect(CL_m2.cport, central_M2.cport) annotation(
     Line(points = {{20, 90}, {10, 90}, {10, 60}, {0, 60}}, color = {152, 112, 187}));
-  // ports
-  connect(central.cport, centralCPort) annotation(
-    Line(points = {{0, 0}, {-100, 0}}, color = {152, 112, 187}));
-  connect(central_M1.cport, centralM1CPort) annotation(
-    Line(points = {{0, -60}, {-100, -60}}, color = {152, 112, 187}));
-  connect(central_M2.cport, centralM2CPort) annotation(
-    Line(points = {{0, 60}, {-100, 60}}, color = {152, 112, 187}));
+// ports
   connect(infusionDose.cport, central.cport) annotation(
-    Line(points = {{38, 14}, {38, 7}, {0, 7}, {0, 0}}, color = {152, 112, 187}));
+    Line(points = {{34, 14}, {34, 7}, {0, 7}, {0, 0}}, color = {152, 112, 187}));
+  connect(centralCPort, central.cport) annotation(
+    Line(points = {{-100, 0}, {-94, 0}, {-94, 8}, {0, 8}, {0, 0}}));
+  connect(centralM2CPort, central_M2.cport) annotation(
+    Line(points = {{-100, 60}, {-98, 60}, {-98, 74}, {0, 74}, {0, 60}}));
+  connect(centralM1CPort, central_M1.cport) annotation(
+    Line(points = {{-100, -60}, {-98, -60}, {-98, -50}, {0, -50}, {0, -60}}));
   annotation(
     Icon(graphics = {Text(origin = {0, -80}, extent = {{-180, 20}, {180, -20}}, textString = "%name", textStyle = {TextStyle.Bold})}),
     experiment(StartTime = 0, StopTime = 86400, Tolerance = 1e-06, Interval = 60),

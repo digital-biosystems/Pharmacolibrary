@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Project Is
 
-**Pharmacolibrary** is a Modelica library (v25.09) for pharmacokinetics (PK), pharmacodynamics (PD), toxicokinetics/toxicodynamics, and pharmacogenomics (PGx) modeling. It requires Modelica 4.0.0 and won the 1st library award at Modelica Conference 2025.
+**Pharmacolibrary** is a Modelica library (v26.09) for pharmacokinetics (PK), pharmacodynamics (PD), toxicokinetics/toxicodynamics, and pharmacogenomics (PGx) modeling. It requires Modelica 4.0.0 and won the 1st library award at Modelica Conference 2025.
 
 The library is not a traditional software project — it has no build system, no test runner, and no linter. "Building" means opening the library in a Modelica tool and simulating models.
 
@@ -68,20 +68,18 @@ Drug-specific example models follow a layered inheritance pattern:
 ### Drugs package organization
 Each drug `.mo` is a **`model`** (not a `record`) that `extends` a `Pharmacokinetic.Models.*` template and overrides parameters (Vd, CL, F, ka, adminMass, etc.). Two parallel naming schemes live under `Drugs/`:
 
-1. **Curated, human-named hierarchy** — ATC anatomical groups with readable folder/drug names:
+**One hierarchy (since 26.09)** — ATC level 1 / level 3 / level 5 packages with readable names:
 ```
 Drugs/N_NervousSystem/N01A_AnestheticsGeneral/N01AX10_Propofol/Propofol.mo
       ↳ model Propofol extends Pharmacolibrary.Pharmacokinetic.Models.PK_3C_ES(...)
 ```
-2. **Bulk auto-generated set** in `Drugs/ATC/<letter>/<ATCcode>.mo` (~5,700 files, e.g. `Drugs/ATC/J/J05AE03.mo`), each `model <ATCcode> extends Pharmacokinetic.Models.PK_2C_enteral(...)`. These derive from a PK database (see `sim/`, pk-db.com); most are machine-generated with database-sourced parameters.
-
-`Drugs/Common/` and `Drugs/Z_Unclassified/` hold shared bases and unclassified entries. When editing/adding drugs, follow the scheme of the neighboring files and update `package.order`.
+The model named like its package (`{Drug}`) is the drug's default; most are machine-generated (revision "06/2025 … LLM(GPT4.1)") and are replaced by library updates — a persistent own variant uses a suffix with letters (`{Drug}_1C`). Models extracted from papers by pharmacolibrary-dev sit beside it as `{Drug}_{Author}{Year}_…`. Until 25.09 the generated models lived in `Drugs/ATC/<letter>/<ATCcode>.mo` and molecular data in `Drugs/Common/`; both were removed in 26.09 (folded into the hierarchy; `Resources/Scripts/Conversion/ConvertFromPharmacolibrary_25.09.mos` converts old references). `Drugs/Z_Unclassified/` holds unclassified entries. When editing/adding drugs, follow the scheme of the neighboring files and update `package.order`.
 
 ### Key parameter conventions
 All times are in **seconds** (SI). Volume of distribution is in **m³** (L/1000). Clearance is in **m³/s**. The `displayUnit` annotations handle human-readable display in L, mg, h, etc.
 
 ## Adding a New Drug Model
 
-1. Add a drug `model` under `Drugs/<ATC_category>/<ATC_code_DrugName>/` (curated) or `Drugs/ATC/<letter>/<ATCcode>.mo` (bulk), following the neighboring structure.
+1. Add a drug `model` under `Drugs/<L1>_<Name>/<L3>_<Name>/<ATC_code>_<Drug>/`, following the neighboring structure.
 2. Create an example model under `Examples/` (or a subdirectory) that extends an appropriate generic model (`PK_1C`, `PK_2C`, `PK_3C`) and overrides parameters.
 3. Update the relevant `package.order` files to include the new components.
