@@ -4,8 +4,8 @@ class Contact "Contact"
 
   annotation (
     Documentation(
-      info = "<html><head></head><body><h4>Authors</h4>
-    <blockquote>Tomas Kulhanek<sup>1,2,3</sup>, Filip Jezek<sup>3,4</sup></blockquote><blockquote><sup>1</sup>VITO -&nbsp;Vlaamse Instelling voor Technologisch Onderzoek, Mol, Belgium</blockquote><blockquote><sup>2</sup>Univerzita Karlova, Praha, Czech Republic</blockquote><blockquote><span style=\"vertical-align: super;\">3</span>Creative Connections s.r.o, Praha, Czech Republic</blockquote><blockquote><sup>4</sup>University of Michigan, Ann Arbor, USA</blockquote>
+      info = "<html><head></head><body><h4>Authors and Contributors</h4>
+    <blockquote><ul><li>Tomas Kulhanek<font size=\"2\">&nbsp;- </font>VITO, Mol, Belgium; Univerzita Karlova, Praha, Czech Republic</li><li>Filip Jezek<font size=\"2\">&nbsp;-&nbsp;</font>University of Michigan, Ann Arbor, USA</li><li>Marek Matejak - IKEM, Praha, Czech Republic</li><li>Simon Denil -&nbsp;VITO, Mol, Belgium</li><li>Burakcan Izmirli -&nbsp;VITO, Mol, Belgium</li><li>Gokhan Ertaylan -&nbsp;VITO, Mol, Belgium</li><li>Stef Rommes -&nbsp;VITO, Mol, Belgium</li></ul></blockquote>
     
     
     <h4>Contact</h4>
